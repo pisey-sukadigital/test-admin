@@ -1,16 +1,15 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Dashboard Component</div>
-
-                        <div class="card-body">
-                            I'm an Dashboard component.
-                        </div>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">Dashboard Component</div>
+                    <div class="card-body"> I'm an Dashboard component. </div>
                 </div>
-            </div>
-        </div>
+          </div><!-- /.col-lg-12 -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
 </template>
 

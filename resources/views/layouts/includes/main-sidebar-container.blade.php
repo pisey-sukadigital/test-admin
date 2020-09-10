@@ -71,6 +71,22 @@
             </router-link>
         </li>
         <li class="nav-item">
+            <router-link to="/post" class="nav-link">
+                <i class="nav-icon fas fa-user"></i>
+                <p>
+                Post
+                </p>
+            </router-link>
+        </li>
+        <li class="nav-item">
+            <router-link to="/post-create" class="nav-link">
+                <i class="nav-icon fas fa-user"></i>
+                <p>
+                Post Create
+                </p>
+            </router-link>
+        </li>
+        <li class="nav-item">
         <a href="{{ route('logout') }}" class="nav-link"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">

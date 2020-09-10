@@ -7,20 +7,25 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import { Form, HasError, AlertError } from 'vform'
+
+window.Form = Form;
+
+import store from './store/index'
+
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 
 import VueRouter from 'vue-router'
-
 import Dashboard from './components/Dashboard.vue';
-
 import Active from './components/starter-page/Active.vue';
 import Inactive from './components/starter-page/Inactive.vue';
-
 import Users from './components/Users.vue';
-
 import Profile from './components/Profile.vue';
-
-
+import Post from './components/Post.vue';
 import NotFoundComponent from './components/NotFoundComponent.vue';
+
+
 
 Vue.use(VueRouter)
 
@@ -47,6 +52,10 @@ const routes = [{
     {
         path: '/profile',
         component: Profile
+    },
+    {
+        path: '/post',
+        component: Post
     }
 ]
 
@@ -80,5 +89,6 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    store
 });
