@@ -24,23 +24,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                        123
-                        </td>
-                        <td>DDDD</td>
-                        <td>DDD@gmail.com</td>
-                        <td>Append</td>
-                        <td>
-                        <a href="#" class="text-muted">
-                            <i class="fas fa-edit text-info"></i>
-                        </a>
-                        /
-                        <a href="#" class="text-muted">
-                            <i class="fas fa-trash text-danger"></i>
-                        </a>
-                        </td>
-                    </tr>
+                        <tr v-for="data in datas.data" :key="data.id">
+                            <td> {{data.id}} </td>
+                            <td> {{data.name}} </td>
+                            <td> {{data.email}} </td>
+                            <td> Append </td>
+                            <td> 
+                                <a href="#" class="text-muted">
+                                    <i class="fas fa-edit text-info"></i>
+                                </a>
+                                /
+                                <a href="#" class="text-muted" @click="deleteData(data)">
+                                    <i class="fas fa-trash text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
                     </tbody>
                     </table>
                 </div>
@@ -57,7 +55,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form @submit.prevent="createUser" @keydown="form.onKeydown($event)">
+                <form @submit="createData(form)" @keydown="form.onKeydown($event)">
                     <div class="modal-body">
                     
                         <div class="form-group">
@@ -90,7 +88,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button :disabled="form.busy" type="submit" class="btn btn-primary">Create</button>
+                        <button :disabled="form.busy" type="submit" class="btn btn-primary"
+                        @click.prevent="createData(form)">Create</button>
                     </div>
                 </form>
                 </div>
@@ -101,7 +100,10 @@
 
 <script>
 
+    import {mapGetters} from 'vuex'
+
     let actions = {
+        name: "users",
          data(){
             return {
                 form: new Form({
@@ -113,14 +115,21 @@
             }
         },
         mounted() {
-            console.log('Component mounted.')
+            this.$store.dispatch('fetchDatas','/api/users')
         },
         methods: {
-            createUser () {
-            this.form.post('/api/user')
-                .then(({ data }) => { console.log(data) })
-                .catch({});
-            }
+            createData(form) {
+                console.log(form);
+                this.$store.dispatch('createData',['/api/users',form])
+            },
+            deleteData(data) {
+                this.$store.dispatch('deleteData',['/api/users',data])
+            },
+        },
+        computed: {
+            ...mapGetters([
+                'datas'
+            ])
         }
     }
     export default actions

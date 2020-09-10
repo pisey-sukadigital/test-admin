@@ -1,14 +1,15 @@
 let actions = {
     createData({ commit }, datas) {
         let url = datas[0];
-        let data = datas[1];
-        if (url && data) {
-            axios.post(url, data)
-                .then(res => {
-                    commit('CREATE_DATA', res.data);
-                }).catch(err => {
-                    console.log(err)
+        let form = datas[1];
+        if (url && form) {
+            form.post(url)
+                .then(({ data }) => {
+                    commit('CREATE_DATA', data);
                 })
+                .catch(err => {
+                    console.log(err)
+                });
         } else {
             console.log("Missing data");
         }

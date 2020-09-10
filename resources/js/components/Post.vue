@@ -46,18 +46,19 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" class="ml-2 mr-2" enctype="multipart/form-data" @submit="createData(data)">
+                <form action="" class="ml-2 mr-2" enctype="multipart/form-data"
+                 @submit="createData(form)" @keydown="form.onKeydown($event)">
                     <div class="form-group">
-                        <input type="text" name="title" placeholder="Post title" v-model="data.title" class="form-control">
+                        <input type="text" name="title" placeholder="Post title" v-model="form.title" class="form-control">
                     </div>
                     <div class="form-group">
-                        <textarea v-model="data.content" name="content" placeholder="Post content" class="form-control">
+                        <textarea v-model="form.content" name="content" placeholder="Post content" class="form-control">
 
                         </textarea>
                     </div>
                     <div class="form-group">
-                        <button :disabled="!isValid" class="btn btn-block btn-primary" @click.prevent="createData(data)">Submit
-                        </button>
+                        <button :disabled="!isValid" class="btn btn-block btn-primary" 
+                        @click.prevent="createData(form)">Submit</button>
                     </div>
                 </form>
                 </div>
@@ -68,14 +69,15 @@
 
 <script>
     import {mapGetters} from 'vuex'
+
     export default {
-        name: "datas",
+        name: "posts",
         data() {
             return {
-                data: {
+                form: new Form({
                     title: '',
                     content: ''
-                }
+                })
             }
         },
         mounted() {
@@ -94,7 +96,7 @@
                 'datas'
             ]),
             isValid() {
-                return this.data.title !== '' && this.data.content !== ''
+                return this.form.title !== '' && this.form.content !== '';
             }
         }
     }
