@@ -9,13 +9,14 @@ use App\Http\Resources\PostResource;
 
 class PostController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
-        return PostResource::collection(Post::all());
+    public function index()
+    {
+        return PostResource::collection(Post::all()->sortByDesc("id"));
     }
 
     /**
@@ -28,7 +29,6 @@ class PostController extends Controller
     {
         $post = Post::create($request->all());
         return response()->json($post);
-      
     }
 
     /**
@@ -39,7 +39,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return new PostResource(Post::find(1));
+        return new PostResource(Post::find($id));
     }
 
     /**
@@ -51,7 +51,8 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $edit = Post::find($id)->update($request->all());
+        return response()->json($edit);
     }
 
     /**

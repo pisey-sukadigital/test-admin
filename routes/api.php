@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\PostController;
+use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('users',UserController::class);
 Route::apiResource('posts',PostController::class);
+Route::apiResource('companys',CompanyController::class);
 

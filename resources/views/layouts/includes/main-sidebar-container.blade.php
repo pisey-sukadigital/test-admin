@@ -71,10 +71,18 @@
             </router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/post" class="nav-link">
+            <router-link to="/posts" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
-                Post
+                Posts
+                </p>
+            </router-link>
+        </li>
+        <li class="nav-item">
+            <router-link to="/companys" class="nav-link">
+                <i class="nav-icon fas fa-user"></i>
+                <p>
+                Companys
                 </p>
             </router-link>
         </li>

@@ -22,7 +22,9 @@ import Active from './components/starter-page/Active.vue';
 import Inactive from './components/starter-page/Inactive.vue';
 import Users from './components/Users.vue';
 import Profile from './components/Profile.vue';
-import Post from './components/Post.vue';
+import Posts from './components/Posts.vue';
+import Companys from './components/Companys.vue';
+
 import NotFoundComponent from './components/NotFoundComponent.vue';
 
 
@@ -54,8 +56,12 @@ const routes = [{
         component: Profile
     },
     {
-        path: '/post',
-        component: Post
+        path: '/posts',
+        component: Posts
+    },
+    {
+        path: '/companys',
+        component: Companys
     }
 ]
 
