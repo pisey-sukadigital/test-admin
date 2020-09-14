@@ -15,6 +15,7 @@
 <body class="hold-transition sidebar-mini">
     <div id="app" class="wrapper">
 
+
         <!-- Content Header (Page header) -->
         @include('layouts.includes.navbar')
         <!-- /.content-header -->
@@ -26,10 +27,10 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper pt-2">
             <!-- Content Header (Page header) -->
-            {{--  @include('layouts.includes.header')  --}}
+            @include('layouts.includes.header')
             <!-- /.content-header -->
 
-             {{--  <div id="app">  --}}
+            {{--  <div id="app">  --}}
                 <app></app>
             {{--  </div>  --}}
             
@@ -39,8 +40,6 @@
 
             {{--  <app></app>  --}}
 
-            
-        
         </div>
         <!-- /.content-wrapper -->
 
