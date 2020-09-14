@@ -20,6 +20,8 @@
                         <th>ID</th>
                         <th>Title</th>
                         <th>Content</th>
+                        <th>Created</th>
+                        <th>Updated</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -27,7 +29,9 @@
                         <tr v-for="data in datas.data" :key="data.id">
                             <td>{{data.id}}</td>
                             <td>{{data.title}}</td>
-                            <td>{{data.content}}</td>
+                            <td>{{data.content | upText}}</td>
+                            <td>{{data.created_at | myDate}}</td>
+                            <td>{{data.updated_at | myDate}}</td>
                             <td>
                                 <a href="#" class="text-muted" @click="showEditForm(data)"><i class="fas fa-edit text-info"></i></a>
                             /

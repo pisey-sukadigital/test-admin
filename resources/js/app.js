@@ -12,6 +12,7 @@ import { Form, HasError, AlertError } from 'vform'
 window.Form = Form;
 
 import store from './store/index'
+import moment from 'moment';
 
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
@@ -25,13 +26,17 @@ import Profile from './components/Profile.vue';
 import Posts from './components/Posts.vue';
 import Companys from './components/Companys.vue';
 
-import NotFoundComponent from './components/NotFoundComponent.vue';
+import NotFound from './components/NotFound.vue';
 
 
 
 Vue.use(VueRouter)
 
 const routes = [{
+        path: '*',
+        component: NotFound
+    },
+    {
         path: '/',
         component: Dashboard
     },
@@ -73,6 +78,14 @@ const router = new VueRouter({
     //     }]
     routes // short for `routes: routes`
 })
+
+Vue.filter('upText', function(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+});
+
+Vue.filter('myDate', function(created) {
+    return moment(created).format('MMMM Do YYYY, h:mm:ss a');
+});
 
 /**
  * The following block of code may be used to automatically register your
