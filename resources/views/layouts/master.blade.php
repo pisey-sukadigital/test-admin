@@ -29,9 +29,17 @@
             {{--  @include('layouts.includes.header')  --}}
             <!-- /.content-header -->
 
+             {{--  <div id="app">  --}}
+                <app></app>
+            {{--  </div>  --}}
+            
             <!-- Main content -->
-                <router-view></router-view>
+                {{--  <router-view></router-view>  --}}
             <!-- /.content -->
+
+            {{--  <app></app>  --}}
+
+            
         
         </div>
         <!-- /.content-wrapper -->

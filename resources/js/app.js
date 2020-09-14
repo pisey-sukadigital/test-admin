@@ -9,6 +9,8 @@ require('./bootstrap');
 window.Vue = require('vue');
 import { Form, HasError, AlertError } from 'vform'
 
+import VueProgressBar from "vue-progressbar";
+
 window.Form = Form;
 
 import store from './store/index'
@@ -17,20 +19,35 @@ import moment from 'moment';
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
+Vue.use(VueRouter, VueProgressBar, options);
+
 import VueRouter from 'vue-router'
+
+import App from './components/App.vue';
 import Dashboard from './components/Dashboard.vue';
 import Active from './components/starter-page/Active.vue';
 import Inactive from './components/starter-page/Inactive.vue';
 import Users from './components/Users.vue';
 import Profile from './components/Profile.vue';
 import Posts from './components/Posts.vue';
-import Companys from './components/Companys.vue';
-
+import Companys from "./components/Companys.vue";
 import NotFound from './components/NotFound.vue';
 
+const options = {
+    color: "#bffaf3",
+    failedColor: "#874b4b",
+    thickness: "5px",
+    transition: {
+        speed: "0.2s",
+        opacity: "0.6s",
+        termination: 300
+    },
+    autoRevert: true,
+    location: "left",
+    inverse: false
+};
 
 
-Vue.use(VueRouter)
 
 const routes = [{
         path: '*',
@@ -72,16 +89,17 @@ const routes = [{
 
 const router = new VueRouter({
     mode: 'history',
-    // routes: [{
-    //         path: '*',
-    //         component: NotFoundComponent
-    //     }]
     routes // short for `routes: routes`
 })
 
-Vue.filter('upText', function(text) {
-    return text.charAt(0).toUpperCase() + text.slice(1);
-});
+// Vue.filter('upText', function(text) {
+//     if (text != "") {
+//         var str = text.split(" ");
+//         console.log(str);
+//         return text.charAt(0).toUpperCase() + text.slice(1);
+//     }
+//     return "";
+// });
 
 Vue.filter('myDate', function(created) {
     return moment(created).format('MMMM Do YYYY, h:mm:ss a');
@@ -107,7 +125,8 @@ Vue.filter('myDate', function(created) {
  */
 
 const app = new Vue({
-    el: '#app',
+    el: "#app",
+    components: { App },
     router,
     store
 });

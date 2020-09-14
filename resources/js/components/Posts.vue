@@ -1,4 +1,5 @@
 <template>
+    
     <div class="content">
         <div class="container-fluid">
         <div class="row">
@@ -29,7 +30,7 @@
                         <tr v-for="data in datas.data" :key="data.id">
                             <td>{{data.id}}</td>
                             <td>{{data.title}}</td>
-                            <td>{{data.content | upText}}</td>
+                            <td>{{data.content}}</td>
                             <td>{{data.created_at | myDate}}</td>
                             <td>{{data.updated_at | myDate}}</td>
                             <td>
@@ -92,10 +93,12 @@
         },
         mounted() {
             this.fetchDatas();
+            //  this.$Progress.finish()
         },
         methods: {
 
             fetchDatas() {
+                // this.$Progress.start()
                 this.$store.dispatch('fetchDatas',this.url).then(response => {
                     if (response.status == '200'){
                         // message
