@@ -55,8 +55,8 @@
                 <form action="" class="ml-2 mr-2" enctype="multipart/form-data"
                  @submit="createData()" @keydown="form.onKeydown($event)">
                  <input type="hidden" name="id" v-model="form.id" >
-                    <div class="form-group">
-                        <input type="text" name="title" placeholder="Post title" v-model="form.title" class="form-control">
+                    <div class="form-group mt-2">
+                        <input id="title" type="text" name="title" ref="title" placeholder="Post title" v-model="form.title" class="form-control">
                     </div>
                     <div class="form-group">
                         <textarea v-model="form.content" name="content" placeholder="Post content" class="form-control">
@@ -108,8 +108,10 @@
 
             showCreateForm(){
                 this.statusModule('show');
-                this.is_edit = false;
                 this.form.reset();
+                this.$refs.title.focus()
+                this.is_edit = false;
+                
             },
 
             createData() {
@@ -118,22 +120,15 @@
                 .then(response => {
                     if (response.status == '200'){
                         // message
-                        this.statusModule('hide');
                         this.$Progress.finish()
+                        this.statusModule('hide');
                         Fire.$emit('AfterCreate');
-                        toast.fire({
-                            icon: 'success',
-                            title: 'Post create successfully'
-                        })
-                        
+                        this.displayToastMessage('success','Post create successfully');
                     }
                 }).catch(err => {
                     this.$Progress.fail()
                     console.log('false createData')
-                    toast.fire({
-                        icon: 'error',
-                        title: 'false deleteData'
-                    })
+                    this.displayToastMessage('error','false deleteData');
                 })
             },
 
@@ -144,25 +139,17 @@
             },
 
             updateData() {
-                console.log(this.url+'/'+this.form.id);
-                console.log(this.form);
                 this.$store.dispatch('updateData', [this.url+'/'+this.form.id,this.form])
                 .then(response => {
                     console.log("updateData");
                     if (response.status == '200'){
                         this.updateTable();
                         this.statusModule('hide');
-                        toast.fire({
-                            icon: 'success',
-                            title: 'Create post successfully'
-                        })
+                        this.displayToastMessage('success','Updated post successfully');
                     }
                 }).catch(err => {
                     console.log('false updateData')
-                    toast.fire({
-                        icon: 'error',
-                        title: 'false updateData'
-                    })
+                    this.displayToastMessage('error','false updateData');
                 })
             },
 
@@ -182,16 +169,10 @@
                             if (response.status == '200'){
                                 // message
                                 console.log(response.status);
-                                toast.fire({
-                                    icon: 'success',
-                                    title: 'Deleted post successfully'
-                                })
+                                this.displayToastMessage('success','Deleted post successfully');
                             }
                         }).catch(err => {
-                            toast.fire({
-                                icon: 'error',
-                                title: 'false deleteData'
-                            })
+                            this.displayToastMessage('error','false deleteData');
                         })
                     }
                 })
@@ -214,6 +195,13 @@
                     }
                 }
                 this.form.reset();
+            },
+
+            displayToastMessage(State,Message){
+                toast.fire({
+                    icon: State,
+                    title: Message
+                })
             }
         },
         computed: {
