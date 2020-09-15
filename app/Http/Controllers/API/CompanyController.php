@@ -9,6 +9,16 @@ use App\Http\Resources\CompanyResource;
 
 class CompanyController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+    
     public function index(){
         return CompanyResource::collection(Company::all());
     }
