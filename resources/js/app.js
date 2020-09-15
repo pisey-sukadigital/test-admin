@@ -19,17 +19,12 @@ import moment from 'moment';
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
-Vue.use(VueRouter, VueProgressBar, options);
+Vue.use(VueRouter);
+Vue.use(VueProgressBar, options)
 
 import VueRouter from 'vue-router'
 
 import App from './components/App.vue';
-
-import Navbar from './components/includes/navbar.vue';
-import MainSidebarContainer from './components/includes/mainSidebarContainer.vue';
-import HeaderPage from './components/includes/headerPage.vue';
-import MainFooter from './components/includes/mainFooter.vue';
-import CcontrolSidebar from './components/includes/controlSidebar.vue';
 
 import Dashboard from './components/Dashboard.vue';
 import Active from './components/starter-page/Active.vue';
@@ -132,12 +127,7 @@ Vue.filter('myDate', function(created) {
 const app = new Vue({
     el: "#app",
     components: {
-        App,
-        Navbar,
-        MainSidebarContainer,
-        HeaderPage,
-        MainFooter,
-        CcontrolSidebar
+        App
     },
     router,
     store

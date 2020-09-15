@@ -7,7 +7,7 @@
                     <div class="card-header border-0">
                         <h3 class="card-title">Users</h3>
                         <div class="card-tools">
-                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#myModal">
                             Add New
                         </button>
                         </div>
@@ -54,16 +54,16 @@
             </div>
         </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create user</h5>
+                    <h5 class="modal-title" id="myModalLabel">Create user</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form @submit="createData(form)" @keydown="form.onKeydown($event)">
+                <form @submit="createData()" @keydown="form.onKeydown($event)">
                     <div class="modal-body">
                     
                         <div class="form-group">
@@ -100,12 +100,11 @@
                                 class="form-control" :class="{ 'is-invalid': form.errors.has('status') }">
                             <has-error :form="form" field="status"></has-error>
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         <button :disabled="form.busy" type="submit" class="btn btn-primary"
-                        @click.prevent="createData(form)">Create</button>
+                        @click.prevent="createData()">Create</button>
                     </div>
                 </form>
                 </div>
@@ -122,6 +121,7 @@
         name: "company",
          data(){
             return {
+                url: "/api/companys",
                 form: new Form({
                     name : '',
                     secret : '',
@@ -133,15 +133,44 @@
             }
         },
         mounted() {
+            this.fetchDatas();
             this.$store.dispatch('fetchDatas','/api/companys')
         },
         methods: {
-            createData(form) {
-                this.$store.dispatch('createData',['/api/companys',form]);
+            fetchDatas() {
+                this.$Progress.start()
+                this.$store.dispatch('fetchDatas',this.url).then(response => {
+                    if (response.status == '200'){
+                        // message
+                        this.$Progress.finish()
+ 
+                    }
+                }).catch(err => {
+                    console.log('false fetchDatas')
+                    this.$Progress.fail()
+                })
+            },
+            createData() {
+                this.$Progress.start()
+                this.$store.dispatch('createData', [this.url,this.form])
+                .then(response => {
+                    if (response.status == '200'){
+                        // message
+                        this.statusModule('hide');
+                        this.$Progress.finish()
+                        
+                    }
+                }).catch(err => {
+                    console.log('false createData')
+                    this.$Progress.fail()
+                })
             },
 
             deleteData(data) {
                 this.$store.dispatch('deleteData',['/api/companys',data]);
+            },
+            statusModule(status){
+                $('#myModal').modal(status);
             },
         },
         computed: {

@@ -16,7 +16,9 @@
 <script>
     export default {
         mounted() {
-            console.log('Component mounted.')
+          this.$Progress.start()
+          console.log('Component mounted.')
+          this.$Progress.finish()
         }
     }
 </script>

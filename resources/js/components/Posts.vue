@@ -1,5 +1,4 @@
 <template>
-    
     <div class="content">
         <div class="container-fluid">
         <div class="row">
@@ -38,7 +37,6 @@
                             /
                             <a href="#" class="text-muted" @click="deleteData(data)"><i class="fas fa-trash text-danger"></i></a></td>
                         </tr>
-                    
                     </tbody>
                     </table>
                 </div>
@@ -93,18 +91,20 @@
         },
         mounted() {
             this.fetchDatas();
-            //  this.$Progress.finish()
         },
         methods: {
 
             fetchDatas() {
-                // this.$Progress.start()
+                this.$Progress.start()
                 this.$store.dispatch('fetchDatas',this.url).then(response => {
                     if (response.status == '200'){
                         // message
+                        this.$Progress.finish()
+                         
                     }
                 }).catch(err => {
                     console.log('false fetchDatas')
+                    this.$Progress.fail()
                 })
             },
 
@@ -115,15 +115,18 @@
             },
 
             createData() {
+                this.$Progress.start()
                 this.$store.dispatch('createData', [this.url,this.form])
                 .then(response => {
                     if (response.status == '200'){
                         // message
                         this.statusModule('hide');
+                        this.$Progress.finish()
                         
                     }
                 }).catch(err => {
                     console.log('false createData')
+                    this.$Progress.fail()
                 })
             },
 
@@ -134,6 +137,7 @@
             },
 
             fetchData(data) {
+
                 this.$store.dispatch('fetchData',[this.url,data]).then(response => {
                     if (response.status == '200'){
                         // message

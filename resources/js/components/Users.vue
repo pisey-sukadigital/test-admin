@@ -74,14 +74,14 @@
 
                         <div class="form-group">
                             <label>Password</label>
-                            <input v-model="form.password" type="password" name="password"
+                            <input v-model="form.password" type="password" name="password" autocomplete="off"
                                 class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
                             <has-error :form="form" field="password"></has-error>
                         </div>
 
                         <div class="form-group">
                             <label>Confirm Password</label>
-                            <input v-model="form.password_confirmation" type="password" name="password_confirmation"
+                            <input v-model="form.password_confirmation" type="password" name="password_confirmation" autocomplete="off"
                                 class="form-control" :class="{ 'is-invalid': form.errors.has('password_confirmation') }">
                             <has-error :form="form" field="password_confirmation"></has-error>
                         </div>
@@ -106,6 +106,7 @@
         name: "users",
          data(){
             return {
+                url: "/api/users",
                 form: new Form({
                     name : '',
                     email : '',
@@ -115,11 +116,23 @@
             }
         },
         mounted() {
-            this.$store.dispatch('fetchDatas','/api/users')
+            this.fetchDatas();
         },
         methods: {
+            fetchDatas() {
+                this.$Progress.start()
+                this.$store.dispatch('fetchDatas',this.url).then(response => {
+                    if (response.status == '200'){
+                        // message
+                        this.$Progress.finish()
+                         
+                    }
+                }).catch(err => {
+                    console.log('false fetchDatas')
+                    this.$Progress.fail()
+                })
+            },
             createData(form) {
-                console.log(form);
                 this.$store.dispatch('createData',['/api/users',form])
             },
             deleteData(data) {
