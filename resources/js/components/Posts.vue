@@ -7,7 +7,6 @@
                     <div class="card-header border-0">
                         <h3 class="card-title">Posts</h3>
                         <div class="card-tools">
-                        <!-- <button class="btn btn-success" data-toggle="modal" data-target="#myModal"> -->
                         <button class="btn btn-success" @click="showCreateForm()">
                             <i class="fas fa-plus fa-fw"></i> Add New
                         </button>
@@ -93,7 +92,6 @@
             this.fetchDatas();
         },
         methods: {
-
             fetchDatas() {
                 this.$Progress.start()
                 this.$store.dispatch('fetchDatas',this.url).then(response => {
@@ -122,71 +120,91 @@
                         // message
                         this.statusModule('hide');
                         this.$Progress.finish()
+                        Fire.$emit('AfterCreate');
+                        toast.fire({
+                            icon: 'success',
+                            title: 'Post create successfully'
+                        })
                         
                     }
                 }).catch(err => {
-                    console.log('false createData')
                     this.$Progress.fail()
+                    console.log('false createData')
+                    toast.fire({
+                        icon: 'error',
+                        title: 'false deleteData'
+                    })
                 })
             },
 
             showEditForm(data){
                 this.statusModule('show');
                 this.is_edit = true;
-                this.fetchData(data);
-            },
-
-            fetchData(data) {
-
-                this.$store.dispatch('fetchData',[this.url,data]).then(response => {
-                    if (response.status == '200'){
-                        // message
-                        this.setForm(response.data);
-                        this.statusModule('show');
-                    }else{
-                        console.log(response);
-                    }
-                }).catch(err => {
-                    console.log('false fetchData')
-                })
+                this.form.fill(data);
             },
 
             updateData() {
+                console.log(this.url+'/'+this.form.id);
+                console.log(this.form);
                 this.$store.dispatch('updateData', [this.url+'/'+this.form.id,this.form])
                 .then(response => {
+                    console.log("updateData");
                     if (response.status == '200'){
                         this.updateTable();
                         this.statusModule('hide');
+                        toast.fire({
+                            icon: 'success',
+                            title: 'Create post successfully'
+                        })
                     }
                 }).catch(err => {
                     console.log('false updateData')
+                    toast.fire({
+                        icon: 'error',
+                        title: 'false updateData'
+                    })
                 })
             },
 
             deleteData(data) {
-                this.$store.dispatch('deleteData',[this.url,data]).then(response => {
-                    if (response.status == '200'){
-                        // message
+                swal.fire({
+                    title: 'Are you sure to delete?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                    }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        this.$store.dispatch('deleteData',[this.url,data]).then(response => {
+                            if (response.status == '200'){
+                                // message
+                                console.log(response.status);
+                                toast.fire({
+                                    icon: 'success',
+                                    title: 'Deleted post successfully'
+                                })
+                            }
+                        }).catch(err => {
+                            toast.fire({
+                                icon: 'error',
+                                title: 'false deleteData'
+                            })
+                        })
                     }
-                }).catch(err => {
-                    console.log('false deleteData')
                 })
             },
 
             sumit(){
-                this.is_edit ?this.updateData() : this.createData();
+                this.is_edit ? this.updateData() : this.createData();
             },
             
             statusModule(status){
                 $('#myModal').modal(status);
             },
             
-            setForm(data){
-                this.form.id = data.data.id;
-                this.form.title = data.data.title;
-                this.form.content = data.data.content;
-            },
-
             updateTable(){
                 for (let index = 0; index < this.datas.data.length; index++) {
                     const element = this.datas.data[index];
@@ -203,6 +221,11 @@
             isValid() {
                 return this.form.title !== '' && this.form.content !== '';
             }
+        },
+        created(){
+            Fire.$on('AfterCreate',()=>{
+                console.log('Event on AfterCreate');
+            });
         }
     }
 </script>

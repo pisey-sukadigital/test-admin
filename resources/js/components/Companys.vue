@@ -12,7 +12,7 @@
                         </button>
                         </div>
                     </div>
-                <div class="card-body p-0">
+                <div class="table-responsive card-body p-0">
                     <table class="table table-striped table-valign-middle">
                     <thead>
                     <tr>
@@ -143,6 +143,7 @@
                     if (response.status == '200'){
                         // message
                         this.$Progress.finish()
+                        
  
                     }
                 }).catch(err => {
@@ -158,16 +159,37 @@
                         // message
                         this.statusModule('hide');
                         this.$Progress.finish()
+                        toast.fire({
+                            icon: 'success',
+                            title: 'Company create successfully'
+                        })
                         
                     }
                 }).catch(err => {
-                    console.log('false createData')
                     this.$Progress.fail()
+                    toast.fire({
+                        icon: 'error',
+                        title: 'false createData'
+                    })
                 })
             },
 
             deleteData(data) {
-                this.$store.dispatch('deleteData',['/api/companys',data]);
+                this.$store.dispatch('deleteData',[this.url,data]).then(response => {
+                    if (response.status == '200'){
+                        // message
+                        toast.fire({
+                            icon: 'success',
+                            title: 'Company deleted successfully'
+                        })
+                    }
+                }).catch(err => {
+                    toast.fire({
+                        icon: 'error',
+                        title: 'false deleteData'
+                    })
+                    console.log('false deleteData')
+                })
             },
             statusModule(status){
                 $('#myModal').modal(status);

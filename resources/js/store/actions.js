@@ -64,8 +64,6 @@ let actions = {
         return new Promise((resolve, reject) => {
             let url = datas[0];
             let data = datas[1];
-            console.log(data);
-
             if (url && data) {
                 axios.put(url, data)
                     .then(response => {
