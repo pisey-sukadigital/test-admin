@@ -24,9 +24,16 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return PostResource::collection(Post::all()->sortByDesc("id"));
+        $page = 10;
+        if($request->get('limit') != ''){
+            $page = $request->get('limit');
+        }
+
+        $data = Post::latest('id')->paginate($page);
+        return response()->json($data);
+
     }
 
     /**

@@ -5,40 +5,69 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header border-0">
-                        <h3 class="card-title">Posts</h3>
-                        <div class="card-tools">
-                        <button class="btn btn-success" @click="showCreateForm()">
-                            <i class="fas fa-plus fa-fw"></i> Add New
-                        </button>
+                        <div class="row">
+                            <div class="col pl-2">
+                                    <form type="get" class="form-inline mb-0">
+                                        <div class="form-group mr-2">
+                                            <select v-model="limit" @change="onSelected($event)" name="display" class="form-control d-inline-block col-md-12 rounded-0" style="width: auto;" id="show-select">
+                                                <option>20</option>
+                                                <option>50</option>
+                                                <option>100</option>
+                                                <option>200</option>
+                                                <option>500</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control border-secondary border-right-0 rounded-0" type="search" placeholder="Search"  id="search">
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="form-control bg-primary btn-outline-secondary border-left-0 rounded-0 rounded-right btn-search" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                            </div>
+                            <div class="col-auth">
+                                <button class="btn btn-success" @click="showCreateForm()">
+                                    <i class="fas fa-plus fa-fw"></i> Add New
+                                </button>
+                            </div>
                         </div>
                     </div>
-                <div class="card-body p-0">
-                    <table class="table table-striped table-valign-middle">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Content</th>
-                        <th>Created</th>
-                        <th>Updated</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="data in datas.data" :key="data.id">
-                            <td>{{data.id}}</td>
-                            <td>{{data.title}}</td>
-                            <td>{{data.content}}</td>
-                            <td>{{data.created_at | myDate}}</td>
-                            <td>{{data.updated_at | myDate}}</td>
-                            <td>
-                                <a href="#" class="text-muted" @click="showEditForm(data)"><i class="fas fa-edit text-info"></i></a>
-                            /
-                            <a href="#" class="text-muted" @click="deleteData(data)"><i class="fas fa-trash text-danger"></i></a></td>
+                    <div class="card-body pl-2 pr-2 pt-2 pb-0">
+                        <div class="table-responsive card card-primary card-outline">
+                             <table class="table table-hover table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                            <th>Action</th>
                         </tr>
-                    </tbody>
-                    </table>
-                </div>
+                        </thead>
+                        <tbody>
+                            <tr v-for="data in laravelData.data" :key="data.id">
+                                <td>{{data.id}}</td>
+                                <td>{{data.title}}</td>
+                                <td>{{data.content}}</td>
+                                <td>{{data.created_at | myDate}}</td>
+                                <td>{{data.updated_at | myDate}}</td>
+                                <td>
+                                    <a href="#" class="text-muted" @click="showEditForm(data)"><i class="fas fa-edit text-info"></i></a>
+                                /
+                                <a href="#" class="text-muted" @click="deleteData(data)"><i class="fas fa-trash text-danger"></i></a></td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        </div>
+                       
+                    </div>
+                    <div class="card-footer">
+                        <pagination  :data="laravelData"  @pagination-change-page="fetchDatas" :limit="2" :align="'right'" ></pagination>
+                    </div>
+
                 </div>
             </div>
         </div><!-- /.row -->
@@ -86,19 +115,25 @@
                 url: "/api/posts",
                 is_edit: false,
                 form: new Form({ id: '', title: '', content: '' }),
+                laravelData: {},
+                limit:20,
+                search:''
             }
         },
         mounted() {
             this.fetchDatas();
         },
         methods: {
-            fetchDatas() {
+            fetchDatas(page = 1,) {
                 this.$Progress.start()
-                this.$store.dispatch('fetchDatas',this.url).then(response => {
+                var url = this.url+'?page=' + page;              
+                url += '&&limit='+ this.limit
+
+                this.$store.dispatch('fetchDatas',url).then(response => {
                     if (response.status == '200'){
                         // message
+                        this.laravelData = response.data;
                         this.$Progress.finish()
-                         
                     }
                 }).catch(err => {
                     console.log('false fetchDatas')
@@ -111,7 +146,6 @@
                 this.form.reset();
                 this.$refs.title.focus()
                 this.is_edit = false;
-                
             },
 
             createData() {
@@ -143,7 +177,8 @@
                 .then(response => {
                     console.log("updateData");
                     if (response.status == '200'){
-                        this.updateTable();
+                        // this.updateTable();
+                        this.fetchDatas();
                         this.statusModule('hide');
                         this.displayToastMessage('success','Updated post successfully');
                     }
@@ -205,6 +240,11 @@
                     icon: State,
                     title: Message
                 })
+            },
+            onSelected(event) {
+                console.log(event.target.value);
+                this.limit = event.target.value;
+                this.fetchDatas();
             }
         },
         computed: {

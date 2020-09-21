@@ -14,7 +14,11 @@ import Active from './components/starter-page/Active.vue';
 import Inactive from './components/starter-page/Inactive.vue';
 import Users from './components/Users.vue';
 import Profile from './components/Profile.vue';
-import Posts from './components/Posts.vue';
+
+// import Posts from './components/Posts.vue';
+const Posts = () =>
+    import ('./components/Posts.vue')
+
 import Companys from "./components/Companys.vue";
 import NotFound from './components/NotFound.vue';
 
@@ -24,25 +28,26 @@ window.swal = swal;
 window.Fire = new Vue();
 
 const toast = swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  onOpen: (toast) => {
-    toast.addEventListener('mouseenter', swal.stopTimer)
-    toast.addEventListener('mouseleave', swal.resumeTimer)
-  }
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+        toast.addEventListener('mouseenter', swal.stopTimer)
+        toast.addEventListener('mouseleave', swal.resumeTimer)
+    }
 })
 
 window.toast = toast;
 
-Vue.component(HasError.name, HasError,AlertError.name, AlertError )
-Vue.use(VueRouter);
-Vue.use(VueProgressBar, options)
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+Vue.component('pagination', require('laravel-vue-pagination'));
 
-const options = {
-    color: "#bffaf3",
+Vue.use(VueRouter);
+Vue.use(VueProgressBar, {
+    color: 'yellow',
     failedColor: "#874b4b",
     thickness: "5px",
     transition: {
@@ -51,9 +56,9 @@ const options = {
         termination: 300
     },
     autoRevert: true,
-    location: "left",
     inverse: false
-};
+});
+
 
 const routes = [{
         path: '*',
