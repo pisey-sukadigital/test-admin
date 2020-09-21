@@ -165,13 +165,16 @@
                     }).then((result) => {
 
                     if (result.isConfirmed) {
+                        this.$Progress.start()
                         this.$store.dispatch('deleteData',[this.url,data]).then(response => {
                             if (response.status == '200'){
                                 // message
+                                 this.$Progress.finish()
                                 console.log(response.status);
                                 this.displayToastMessage('success','Deleted post successfully');
                             }
                         }).catch(err => {
+                            this.$Progress.fail()
                             this.displayToastMessage('error','false deleteData');
                         })
                     }
