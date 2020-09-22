@@ -37,30 +37,30 @@
                     <div class="card-body pl-2 pr-2 pt-2 pb-0">
                         <div class="table-responsive card card-primary card-outline">
                              <table class="table table-hover table-striped table-bordered">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Content</th>
-                            <th>Created</th>
-                            <th>Updated</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="data in laravelData.data" :key="data.id">
-                                <td>{{data.id}}</td>
-                                <td>{{data.title}}</td>
-                                <td>{{data.content}}</td>
-                                <td>{{data.created_at | myDate}}</td>
-                                <td>{{data.updated_at | myDate}}</td>
-                                <td>
-                                    <a href="#" class="text-muted" @click="showEditForm(data)"><i class="fas fa-edit text-info"></i></a>
-                                /
-                                <a href="#" class="text-muted" @click="deleteData(data)"><i class="fas fa-trash text-danger"></i></a></td>
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Content</th>
+                                <th>Created</th>
+                                <th>Updated</th>
+                                <th>Action</th>
                             </tr>
-                        </tbody>
-                        </table>
+                            </thead>
+                            <tbody>
+                                <tr v-for="data in laravelData.data" :key="data.id">
+                                    <td>{{data.id}}</td>
+                                    <td>{{data.title}}</td>
+                                    <td>{{data.content}}</td>
+                                    <td>{{data.created_at | myDate}}</td>
+                                    <td>{{data.updated_at | myDate}}</td>
+                                    <td>
+                                        <a href="#" class="text-muted" @click="showEditForm(data)"><i class="fas fa-edit text-info"></i></a>
+                                    /
+                                    <a href="#" class="text-muted" @click="deleteData(data)"><i class="fas fa-trash text-danger"></i></a></td>
+                                </tr>
+                            </tbody>
+                            </table>
                         </div>
                        
                     </div>
@@ -175,9 +175,7 @@
             updateData() {
                 this.$store.dispatch('updateData', [this.url+'/'+this.form.id,this.form])
                 .then(response => {
-                    console.log("updateData");
                     if (response.status == '200'){
-                        // this.updateTable();
                         this.fetchDatas();
                         this.statusModule('hide');
                         this.displayToastMessage('success','Updated post successfully');
@@ -204,8 +202,7 @@
                         this.$store.dispatch('deleteData',[this.url,data]).then(response => {
                             if (response.status == '200'){
                                 // message
-                                 this.$Progress.finish()
-                                console.log(response.status);
+                                this.$Progress.finish()
                                 this.displayToastMessage('success','Deleted post successfully');
                             }
                         }).catch(err => {
@@ -224,17 +221,6 @@
                 $('#myModal').modal(status);
             },
             
-            updateTable(){
-                for (let index = 0; index < this.datas.data.length; index++) {
-                    const element = this.datas.data[index];
-                    if(element.id == this.form.id ){
-                        element.title = this.form.title;
-                        element.content = this.form.content;
-                    }
-                }
-                this.form.reset();
-            },
-
             displayToastMessage(State,Message){
                 toast.fire({
                     icon: State,

@@ -12,43 +12,45 @@
                         </button>
                         </div>
                     </div>
-                <div class="table-responsive card-body p-0">
-                    <table class="table table-striped table-valign-middle">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>secret</th>
-                        <th>URL</th>
-                        <th>Callback</th>
-                        <th>Status</th>
-                        <th>Updated</th>
-                        <th>Created</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="data in datas.data" :key="data.id">
-                            <td> {{data.id}} </td>
-                            <td> {{data.name}} </td>
-                            <td> {{data.secret}} </td>
-                            <td> {{data.url}} </td>
-                            <td> {{data.callback}} </td>
-                            <td> {{ data.status == '1' ? 'Active' : 'Disactive'}} </td>
-                            <td> {{data.updated_at}} </td>
-                            <td> {{data.created_at}} </td>
-                            <td> 
-                                <a href="#" class="text-muted">
-                                    <i class="fas fa-edit text-info"></i>
-                                </a>
-                                /
-                                <a href="#" class="text-muted" @click="deleteData(data)">
-                                    <i class="fas fa-trash text-danger"></i>
-                                </a>
-                            </td>
+                <div class="card-body pl-2 pr-2 pt-2 pb-0">
+                    <div class="table-responsive card card-primary card-outline">
+                        <table class="table table-striped table-valign-middle">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>secret</th>
+                            <th>URL</th>
+                            <th>Callback</th>
+                            <th>Status</th>
+                            <th>Updated</th>
+                            <th>Created</th>
+                            <th>Action</th>
                         </tr>
-                    </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                            <tr v-for="data in datas.data" :key="data.id">
+                                <td> {{data.id}} </td>
+                                <td> {{data.name}} </td>
+                                <td> {{data.secret}} </td>
+                                <td> {{data.url}} </td>
+                                <td> {{data.callback}} </td>
+                                <td> {{ data.status == '1' ? 'Active' : 'Disactive'}} </td>
+                                <td> {{data.updated_at}} </td>
+                                <td> {{data.created_at}} </td>
+                                <td> 
+                                    <a href="#" class="text-muted">
+                                        <i class="fas fa-edit text-info"></i>
+                                    </a>
+                                    /
+                                    <a href="#" class="text-muted" @click="deleteData(data)">
+                                        <i class="fas fa-trash text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -118,7 +120,7 @@
     import {mapGetters} from 'vuex'
 
     let actions = {
-        name: "company",
+        name: "Companys",
          data(){
             return {
                 url: "/api/companys",
@@ -128,13 +130,11 @@
                     url : '',
                     callback : '',
                     status : ''
-                    
                 })
             }
         },
         mounted() {
             this.fetchDatas();
-            this.$store.dispatch('fetchDatas','/api/companys')
         },
         methods: {
             fetchDatas() {
@@ -143,8 +143,6 @@
                     if (response.status == '200'){
                         // message
                         this.$Progress.finish()
-                        
- 
                     }
                 }).catch(err => {
                     console.log('false fetchDatas')

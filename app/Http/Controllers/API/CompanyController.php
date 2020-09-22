@@ -20,7 +20,7 @@ class CompanyController extends Controller
     }
     
     public function index(){
-        return CompanyResource::collection(Company::all());
+        return CompanyResource::collection(Company::latest('id')->get());
     }
 
     public function store(Request $request)
