@@ -48,7 +48,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="data in laravelData.data" :key="data.id">
+                                <tr v-for="data in datas.data" :key="data.id">
                                     <td>{{data.id}}</td>
                                     <td>{{data.title}}</td>
                                     <td>{{data.content}}</td>
@@ -65,7 +65,7 @@
                        
                     </div>
                     <div class="card-footer">
-                        <pagination  :data="laravelData"  @pagination-change-page="fetchDatas" :limit="2" :align="'right'" ></pagination>
+                        <pagination :data="datas"  @pagination-change-page="fetchDatas" :limit="2" :align="'right'" ></pagination>
                     </div>
 
                 </div>
@@ -115,7 +115,6 @@
                 url: "/api/posts",
                 is_edit: false,
                 form: new Form({ id: '', title: '', content: '' }),
-                laravelData: {},
                 limit:20,
                 search:''
             }
@@ -124,7 +123,7 @@
             this.fetchDatas();
         },
         methods: {
-            fetchDatas(page = 1,) {
+            fetchDatas(page = 1) {
                 this.$Progress.start()
                 var url = this.url+'?page=' + page;              
                 url += '&&limit='+ this.limit
@@ -132,7 +131,6 @@
                 this.$store.dispatch('fetchDatas',url).then(response => {
                     if (response.status == '200'){
                         // message
-                        this.laravelData = response.data;
                         this.$Progress.finish()
                     }
                 }).catch(err => {

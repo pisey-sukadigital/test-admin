@@ -42,6 +42,9 @@
                     </tbody>
                     </table>
                 </div>
+                <div class="card-footer">
+                    <pagination :data="datas"  @pagination-change-page="fetchDatas" :limit="2" :align="'right'" ></pagination>
+                </div>
                 </div>
             </div>
         </div><!-- /.row -->
@@ -112,16 +115,20 @@
                     email : '',
                     password : '',
                     password_confirmation : '',
-                })
+                }),
+                limit:20,
+                search:''
             }
         },
         mounted() {
             this.fetchDatas();
         },
         methods: {
-            fetchDatas() {
+            fetchDatas(page = 1) {
                 this.$Progress.start()
-                this.$store.dispatch('fetchDatas',this.url).then(response => {
+                this.$Progress.start()
+                var url = this.url+'?page=' + page;  
+                this.$store.dispatch('fetchDatas',url).then(response => {
                     if (response.status == '200'){
                         // message
                         this.$Progress.finish()

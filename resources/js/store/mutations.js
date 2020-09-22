@@ -1,11 +1,4 @@
  let mutations = {
-     CREATE_DATA(state, data) {
-         if (state.datas.data instanceof Array) {
-             state.datas.data.unshift(data);
-         } else {
-             console.log('Not an array');
-         }
-     },
      FETCH_DATAS(state, datas) {
          return state.datas = datas;
      },

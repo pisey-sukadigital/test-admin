@@ -7,7 +7,11 @@ let actions = {
             if (url && data) {
                 axios.get(url + '/' + data.id)
                     .then(response => {
-                        resolve(response);
+                        if (response.status == '200') {
+                            resolve(response);
+                        } else {
+                            console.log("response <> 200")
+                        }
                     }).catch(err => {
                         reject(err)
                     });
@@ -17,13 +21,16 @@ let actions = {
 
     fetchDatas({ commit }, url) {
         return new Promise((resolve, reject) => {
-            axios.get(url)
-                .then(response => {
+            axios.get(url).then(response => {
+                if (response.status == '200') {
                     commit('FETCH_DATAS', response.data);
                     resolve(response);
-                }).catch(err => {
-                    reject(err)
-                });
+                } else {
+                    console.log("response <> 200")
+                }
+            }).catch(err => {
+                reject(err)
+            });
         })
     },
 
@@ -34,14 +41,16 @@ let actions = {
             if (url && form) {
                 axios.post(url, form)
                     .then(response => {
-                        commit('CREATE_DATA', response.data);
-                        resolve(response);
+                        if (response.status == '200') {
+                            resolve(response);
+                        } else {
+                            console.log("response <> 200")
+                        }
                     }).catch(err => {
                         reject(err)
                     });
             }
         })
-
     },
 
     deleteData({ commit }, datas) {
@@ -51,8 +60,12 @@ let actions = {
             if (url && data) {
                 axios.delete(url + '/' + data.id)
                     .then(response => {
-                        commit('DELETE_DATA', data)
-                        resolve(response);
+                        if (response.status == '200') {
+                            commit('DELETE_DATA', data)
+                            resolve(response);
+                        } else {
+                            console.log("response <> 200")
+                        }
                     }).catch(err => {
                         reject(err)
                     });

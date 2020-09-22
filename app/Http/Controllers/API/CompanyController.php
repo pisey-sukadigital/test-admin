@@ -14,13 +14,18 @@ class CompanyController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('auth:api');
     }
     
-    public function index(){
-        return CompanyResource::collection(Company::latest('id')->get());
+     public function index(Request $request){
+        $page = 10;
+        if($request->get('limit') != ''){
+        $page = $request->get('limit');
+        }
+
+        $data = Company::latest('id')->paginate($page);
+        return response()->json($data);
     }
 
     public function store(Request $request)

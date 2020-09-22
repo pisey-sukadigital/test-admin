@@ -27,9 +27,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return UserResource::collection(User::latest('id')->get());
+        $page = 10;
+        if($request->get('limit') != ''){
+            $page = $request->get('limit');
+        }
+
+        $data = User::latest('id')->paginate($page);
+        return response()->json($data);
     }
 
     /**

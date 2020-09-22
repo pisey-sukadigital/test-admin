@@ -9,7 +9,15 @@ $fa-font-path: "../webfonts";
 @import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "@fortawesome/fontawesome-free/scss/solid.scss";
 @import "@fortawesome/fontawesome-free/scss/brands.scss";
-.router-link-exact-active {
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.router-link-exact-active,
+.sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.router-link-exact-active {
     background-color: #007bff;
-    color: #fff !important;
+    color: #fff;
+}
+
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.router-link-exact-active,
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.router-link-exact-active:focus,
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.router-link-exact-active:hover {
+    background-color: #007bff;
+    color: #fff;
 }

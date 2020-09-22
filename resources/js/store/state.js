@@ -1,5 +1,5 @@
 let state = {
-    datas: []
+    datas: {}
 }
 
 export default state
