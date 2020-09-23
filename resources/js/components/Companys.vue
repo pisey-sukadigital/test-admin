@@ -68,7 +68,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form @submit="createData()" @keydown="form.onKeydown($event)">
+                <form @submit.prevent="createData" @keydown="form.onKeydown($event)">
                     <div class="modal-body">
                     
                         <div class="form-group">
@@ -109,7 +109,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         <button :disabled="form.busy" type="submit" class="btn btn-primary"
-                        @click.prevent="createData()">Create</button>
+                        >Create</button>
                     </div>
                 </form>
                 </div>
@@ -139,7 +139,7 @@
             }
         },
         mounted() {
-            this.fetchDatas();
+            
         },
         methods: {
             fetchDatas(page = 1) {
@@ -158,43 +158,51 @@
             },
             createData() {
                 this.$Progress.start()
-                this.$store.dispatch('createData', [this.url,this.form])
-                .then(response => {
-                    if (response.status == '200'){
-                        // message
-                        this.statusModule('hide');
-                        this.fetchDatas();
-                        this.$Progress.finish()
-                        toast.fire({
-                            icon: 'success',
-                            title: 'Company create successfully'
-                        })
-                        
-                    }
-                }).catch(err => {
-                    this.$Progress.fail()
+                this.form.post(this.url).then(({ response }) => {
+                    console.log(response);
+                    this.statusModule('hide');
+                    this.fetchDatas();
+                    this.form.reset();
                     toast.fire({
-                        icon: 'error',
-                        title: 'false createData'
+                        icon: 'success',
+                        title: 'Company create successfully'
                     })
                 })
+                .catch(err => {
+                    this.$Progress.fail()
+                });
             },
 
             deleteData(data) {
-                this.$store.dispatch('deleteData',[this.url,data]).then(response => {
-                    if (response.status == '200'){
-                        // message
-                        toast.fire({
-                            icon: 'success',
-                            title: 'Company deleted successfully'
+                swal.fire({
+                    title: 'Are you sure to delete?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                    }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        this.$Progress.start()
+                        this.$store.dispatch('deleteData',[this.url,data]).then(response => {
+                            if (response.status == '200'){
+                                // message
+                                this.$Progress.finish()
+                                toast.fire({
+                                    icon: 'success',
+                                    title: 'Company deleted successfully'
+                                })
+                            }
+                        }).catch(err => {
+                            this.$Progress.fail()
+                            toast.fire({
+                                icon: 'error',
+                                title: 'false deleteData'
+                            })
                         })
                     }
-                }).catch(err => {
-                    toast.fire({
-                        icon: 'error',
-                        title: 'false deleteData'
-                    })
-                    console.log('false deleteData')
                 })
             },
             statusModule(status){
@@ -205,6 +213,10 @@
             ...mapGetters([
                 'datas'
             ])
+        },
+        created(){
+            this.fetchDatas();
+            //setInterval(() => this.fetchDatas(),1000);
         }
     }
     export default actions

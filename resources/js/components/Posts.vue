@@ -36,7 +36,7 @@
                     </div>
                     <div class="card-body pl-2 pr-2 pt-2 pb-0">
                         <div class="table-responsive card card-primary card-outline">
-                             <table class="table table-hover table-striped table-bordered">
+                            <table class="table table-hover table-striped table-bordered">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -147,21 +147,20 @@
             },
 
             createData() {
+
                 this.$Progress.start()
-                this.$store.dispatch('createData', [this.url,this.form])
-                .then(response => {
-                    if (response.status == '200'){
-                        // message
-                        this.$Progress.finish()
-                        this.statusModule('hide');
-                        Fire.$emit('AfterCreate');
-                        this.displayToastMessage('success','Post create successfully');
-                    }
-                }).catch(err => {
+                this.form.post(this.url).then(({ response }) => {
+                    this.$Progress.finish()
+                    this.statusModule('hide');
+                    this.fetchDatas();
+                    Fire.$emit('AfterCreate');
+                    this.displayToastMessage('success','Post create successfully');
+                })
+                .catch(err => {
                     this.$Progress.fail()
                     console.log('false createData')
                     this.displayToastMessage('error','false deleteData');
-                })
+                });
             },
 
             showEditForm(data){

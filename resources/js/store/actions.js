@@ -34,25 +34,6 @@ let actions = {
         })
     },
 
-    createData({ commit }, datas) {
-        return new Promise((resolve, reject) => {
-            let url = datas[0];
-            let form = datas[1];
-            if (url && form) {
-                axios.post(url, form)
-                    .then(response => {
-                        if (response.status == '200') {
-                            resolve(response);
-                        } else {
-                            console.log("response <> 200")
-                        }
-                    }).catch(err => {
-                        reject(err)
-                    });
-            }
-        })
-    },
-
     deleteData({ commit }, datas) {
         return new Promise((resolve, reject) => {
             let url = datas[0];

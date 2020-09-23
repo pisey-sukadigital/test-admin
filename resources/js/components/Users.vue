@@ -7,40 +7,42 @@
                     <div class="card-header border-0">
                         <h3 class="card-title">Users</h3>
                         <div class="card-tools">
-                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#myModal">
                             Add New<i class="fas fa-user-plus fa-fw"></i>
                         </button>
                         </div>
                     </div>
-                <div class="card-body p-0">
-                    <table class="table table-striped table-valign-middle">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Type</th>
-                        <th>Modify</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="data in datas.data" :key="data.id">
-                            <td> {{data.id}} </td>
-                            <td> {{data.name}} </td>
-                            <td> {{data.email}} </td>
-                            <td> Append </td>
-                            <td> 
-                                <a href="#" class="text-muted">
-                                    <i class="fas fa-edit text-info"></i>
-                                </a>
-                                /
-                                <a href="#" class="text-muted" @click="deleteData(data)">
-                                    <i class="fas fa-trash text-danger"></i>
-                                </a>
-                            </td>
+                <div class="card-body pl-2 pr-2 pt-2 pb-0">
+                    <div class="table-responsive card card-primary card-outline">
+                        <table class="table table-hover table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <th>Modify</th>
                         </tr>
-                    </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                            <tr v-for="data in datas.data" :key="data.id">
+                                <td> {{data.id}} </td>
+                                <td> {{data.name}} </td>
+                                <td> {{data.email}} </td>
+                                <td> Append </td>
+                                <td> 
+                                    <a href="#" class="text-muted">
+                                        <i class="fas fa-edit text-info"></i>
+                                    </a>
+                                    /
+                                    <a href="#" class="text-muted" @click="deleteData(data)">
+                                        <i class="fas fa-trash text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <pagination :data="datas"  @pagination-change-page="fetchDatas" :limit="2" :align="'right'" ></pagination>
@@ -49,11 +51,11 @@
             </div>
         </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create user</h5>
+                    <h5 class="modal-title" id="myModal">Create user</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -126,13 +128,11 @@
         methods: {
             fetchDatas(page = 1) {
                 this.$Progress.start()
-                this.$Progress.start()
                 var url = this.url+'?page=' + page;  
                 this.$store.dispatch('fetchDatas',url).then(response => {
                     if (response.status == '200'){
                         // message
                         this.$Progress.finish()
-                         
                     }
                 }).catch(err => {
                     console.log('false fetchDatas')
@@ -140,10 +140,54 @@
                 })
             },
             createData(form) {
-                this.$store.dispatch('createData',['/api/users',form])
+                this.$Progress.start()
+                this.form.post(this.url).then(({ response }) => {
+                    console.log(response);
+                     $('#myModal').modal('hide');
+                    this.fetchDatas();
+                    this.form.reset();
+                    toast.fire({
+                        icon: 'success',
+                        title: 'Company create successfully'
+                    })
+                })
+                .catch(err => {
+                    this.$Progress.fail()
+                });
+
             },
             deleteData(data) {
-                this.$store.dispatch('deleteData',['/api/users',data])
+                swal.fire({
+                    title: 'Are you sure to delete?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                    }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        this.$Progress.start()
+                        this.$store.dispatch('deleteData',[this.url,data]).then(response => {
+                            if (response.status == '200'){
+                                // message
+                                this.$Progress.finish()
+                                toast.fire({
+                                    icon: 'success',
+                                    title: 'User deleted successfully'
+                                })
+                            }
+                        }).catch(err => {
+                            this.$Progress.fail()
+                            toast.fire({
+                                icon: 'error',
+                                title: 'false deleteData'
+                            })
+                        })
+                    }
+                })
+
             },
         },
         computed: {
