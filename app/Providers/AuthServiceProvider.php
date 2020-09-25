@@ -34,11 +34,11 @@ class AuthServiceProvider extends ServiceProvider
          
         $this->registerPolicies();
 
-         Auth::provider('cached', function ($app, array $config) {
-         $provider = new EloquentUserProvider($app['hash'], $config['model']);
-         $cache = $app->make(Repository::class);
-         return new UserProviderDecorator($provider, $cache);
-         });
+        Auth::provider('cached', function ($app, array $config) {
+            $provider = new EloquentUserProvider($app['hash'], $config['model']);
+            $cache = $app->make(Repository::class);
+            return new UserProviderDecorator($provider, $cache);
+        });
 
         Passport::routes();    
     }

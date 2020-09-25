@@ -23,6 +23,7 @@ final class UserProviderDecorator implements UserProvider
      */
     public function retrieveById($identifier)
     {
+        // 60 => 1 minute
         return $this->cache->remember('id-' . $identifier, 60, function () use ($identifier) {
             return $this->provider->retrieveById($identifier);
         });
