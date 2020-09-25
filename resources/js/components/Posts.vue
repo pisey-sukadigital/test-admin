@@ -82,7 +82,7 @@
                     </button>
                 </div>
                 <form action="" class="ml-2 mr-2" enctype="multipart/form-data"
-                 @submit="createData()" @keydown="form.onKeydown($event)">
+                 @submit="onSumit()" @keydown="form.onKeydown($event)">
                  <input type="hidden" name="id" v-model="form.id" >
                     <div class="form-group mt-2">
                         <input id="title" type="text" name="title" ref="title" placeholder="Post title" v-model="form.title" class="form-control">
@@ -93,10 +93,20 @@
                         </textarea>
                     </div>
                     <div class="form-group">
-                        <button :disabled="!isValid" class="btn btn-block btn-primary" 
-                        @click.prevent="sumit()">
-                        {{ is_edit ? "Submit":"Create" }}
-                        </button>
+                        <div class="row">
+                            <div class="col-md-6 pr-1">
+                                <button :disabled="!isValid" class="btn btn-block btn-primary" 
+                                    @click.prevent="onSumit()">
+                                    {{ is_edit ? "Update":"Create" }}
+                                </button>
+
+                            </div>
+                            <div class="col-md-6 pl-1">
+                                <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </form>
                 </div>
@@ -147,7 +157,6 @@
             },
 
             createData() {
-
                 this.$Progress.start()
                 this.form.post(this.url).then(({ response }) => {
                     this.$Progress.finish()
@@ -210,7 +219,7 @@
                 })
             },
 
-            sumit(){
+            onSumit(){
                 this.is_edit ? this.updateData() : this.createData();
             },
             

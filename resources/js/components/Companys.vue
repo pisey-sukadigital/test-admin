@@ -7,7 +7,7 @@
                     <div class="card-header border-0">
                         <h3 class="card-title">Users</h3>
                         <div class="card-tools">
-                        <button class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                        <button class="btn btn-success" @click="showCreateForm()">
                             Add New
                         </button>
                         </div>
@@ -39,7 +39,7 @@
                                     <td> {{data.updated_at}} </td>
                                     <td> {{data.created_at}} </td>
                                     <td> 
-                                        <a href="#" class="text-muted">
+                                        <a href="#" class="text-muted" @click="showEditForm(data)">
                                             <i class="fas fa-edit text-info"></i>
                                         </a>
                                         /
@@ -63,12 +63,12 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Create user</h5>
+                    <h5 class="modal-title" id="myModalLabel">Company {{ is_edit ? "edit":"creation" }} </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form @submit.prevent="createData" @keydown="form.onKeydown($event)">
+                <form @submit.prevent="onSumit()" @keydown="form.onKeydown($event)">
                     <div class="modal-body">
                     
                         <div class="form-group">
@@ -108,8 +108,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button :disabled="form.busy" type="submit" class="btn btn-primary"
-                        >Create</button>
+                        <button :disabled="form.busy" type="submit" class="btn btn-primary">
+                            {{ is_edit ? "Update":"Create" }}
+                        </button>
                     </div>
                 </form>
                 </div>
@@ -123,11 +124,12 @@
     import {mapGetters} from 'vuex'
 
     let actions = {
-        name: "Companys",
-         data(){
+        name: "Company",
+        data(){
             return {
                 url: "/api/companys",
                 form: new Form({
+                    id: '',
                     name : '',
                     secret : '',
                     url : '',
@@ -135,10 +137,12 @@
                     status : ''
                 }),
                 limit:20,
-                search:''
+                search:'',
+                is_edit: false,
             }
         },
         mounted() {
+            console.log(actions.name);
             
         },
         methods: {
@@ -165,7 +169,7 @@
                     this.form.reset();
                     toast.fire({
                         icon: 'success',
-                        title: 'Company create successfully'
+                        title: actions.name + ' create successfully'
                     })
                 })
                 .catch(err => {
@@ -192,7 +196,7 @@
                                 this.$Progress.finish()
                                 toast.fire({
                                     icon: 'success',
-                                    title: 'Company deleted successfully'
+                                    title: actions.name + ' deleted successfully'
                                 })
                             }
                         }).catch(err => {
@@ -205,8 +209,45 @@
                     }
                 })
             },
+
+            showEditForm(data){
+                this.statusModule('show');
+                this.is_edit = true;
+                this.form.fill(data);
+            },
+
+            showCreateForm(){
+                this.statusModule('show');
+                this.form.reset();
+                this.is_edit = false;
+            },
+
             statusModule(status){
                 $('#myModal').modal(status);
+            },
+
+            onSumit(){
+                this.is_edit ? this.updateData() : this.createData();
+            },
+
+            updateData() {
+                this.$store.dispatch('updateData', [this.url+'/'+this.form.id,this.form])
+                .then(response => {
+                    if (response.status == '200'){
+                        this.fetchDatas();
+                        this.statusModule('hide');
+                         toast.fire({
+                        icon: 'success',
+                        title: actions.name +' updated successfully'
+                    })
+                    }
+                }).catch(err => {
+                    console.log('false updateData')
+                    toast.fire({
+                        icon: 'error',
+                        title: 'false updateData'
+                    })
+                })
             },
         },
         computed: {

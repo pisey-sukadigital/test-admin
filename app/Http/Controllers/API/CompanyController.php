@@ -54,4 +54,17 @@ class CompanyController extends Controller
         Company::destroy($id);
         return response()->json("ok");
     }
+
+    /**
+    * Update the specified resource in storage.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @param int $id
+    * @return \Illuminate\Http\Response
+    */
+    public function update(Request $request, $id)
+    {
+        $edit = Company::find($id)->update($request->all());
+        return response()->json($edit);
+    }
 }
