@@ -64,10 +64,16 @@
                         </textarea>
                     </div>
                     <div class="form-group">
-                        <button :disabled="!isValid" class="btn btn-block btn-primary" 
-                        @click.prevent="sumit()">
-                        {{ is_edit ? "Submit":"Create" }}
-                        </button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button :disabled="!isValid" class="btn btn-block btn-primary" 
+                                    @click.prevent="sumit()"> {{ is_edit ? "Submit":"Create" }}
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
                     </div>
                 </form>
                 </div>
