@@ -21,7 +21,7 @@
         <!-- /.content-header -->
 
         <!-- Main Sidebar Container -->
-        @include('layouts.includes.main-sidebar-container')
+        <main-sidebar-container></main-sidebar-container>
         <!-- /.Main Sidebar Container -->
     
         <!-- Content Wrapper. Contains page content -->
@@ -41,7 +41,9 @@
         <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
-        @include('layouts.includes.main-footer')
+        <main-footer></main-footer>
+        <!-- ./Main Footer -->
+
         <vue-progress-bar></vue-progress-bar>
     
     </div>

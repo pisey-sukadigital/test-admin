@@ -6,7 +6,11 @@ import { HasError, AlertError } from 'vform'
 import store from './store/index'
 import VueRouter from 'vue-router'
 import App from './components/App.vue';
-import Breadcrumb from './components/Breadcrumb.vue';
+import Breadcrumb from './components/breadcrumb/Breadcrumb.vue';
+import MainSidebarContainer from './components/includes/MainSidebarContainer.vue';
+import MainFooter from './components/includes/MainFooter.vue';
+
+
 
 //Import Vue Filter
 require('./filter');
@@ -32,7 +36,9 @@ const app = new Vue({
     el: "#app",
     components: {
         App,
-        Breadcrumb
+        Breadcrumb,
+        MainSidebarContainer,
+        MainFooter
     },
     router,
     store

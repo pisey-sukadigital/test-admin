@@ -9,8 +9,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li v-for="(path, index) in this.$route.meta.path"  class="breadcrumb-item">
-                            <a v-if="(path_count -1 != index)" href="#">{{ path }}</a>
+                        <li v-for="(path, key) in this.$route.meta.path" :key="path"  class="breadcrumb-item">
+                            <a v-if="(path_count -1 != key)" href="#">{{ path }}</a>
                             <span v-else>{{ path }}</span>
                         </li>
                     </ol>
@@ -25,7 +25,6 @@
         data: function () {
             return {
                 path_count: (this.$route.meta.path ? this.$route.meta.path.length : 0)
-                
             }
         },
     }
