@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// Route::get('/home', function () {
+// return view('welcome');
+// });
+
 Auth::routes();
 
 Route::get('/{any}', 'HomeController@index')->where('any', '^(?!api).*$');
