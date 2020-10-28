@@ -34,58 +34,179 @@
           </li>
 
         <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-            Starter Pages
-            <i class="right fas fa-angle-left"></i>
-            </p>
-        </a>
-        <ul class="nav nav-treeview">
-            <li class="nav-item">
-            <router-link to="/starter-page/active" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>Active page</p>
-            </router-link>
-            </li>
-            <li class="nav-item">
-            <router-link to="/starter-page/inactive" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>Inactive page</p>
-            </router-link>
-            </li>
-        </ul>
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p> Account Management <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <router-link to="/player/create" class="nav-link">
+                        <p>Add Player</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/player/list" class="nav-link">
+                        <p>Player List</p>
+                    </router-link>
+                </li>
+            </ul>
         </li>
-         <li class="nav-item">
-            <router-link to="/users" class="nav-link">
-                <i class="nav-icon fas fa-users"></i>
-                <p>Users</p>
-            </router-link>
+
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p> Referral <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <router-link to="/referral/list" class="nav-link">
+                        <p>Referral Name</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/referral/history" class="nav-link">
+                        <p>History</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/referral/transaction" class="nav-link">
+                        <p>Transaction</p>
+                    </router-link>
+                </li>
+            </ul>
         </li>
-        <li class="nav-item">
-            <router-link to="/profile" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
-                <p>
-                Profile
-                </p>
-            </router-link>
+
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p> RakeBack <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <router-link to="/rakeback/limit" class="nav-link">
+                        <p>RakeBack Limit</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/rakeback/history" class="nav-link">
+                        <p>History</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/rakeback/running-bet" class="nav-link">
+                        <p>Running Bet</p>
+                    </router-link>
+                </li>
+            </ul>
         </li>
-        <li class="nav-item">
-            <router-link to="/posts" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
-                <p>
-                Posts
-                </p>
-            </router-link>
+
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p> Report <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <router-link to="/report/player/transaction" class="nav-link">
+                        <p>Player Transaction</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/report/player/running-bet" class="nav-link">
+                        <p>Running Bet</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/report/player/winlost" class="nav-link">
+                        <p>Win \ Lose</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/report/player/daily" class="nav-link">
+                        <p>Daily Player Report Bet</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/report/player/month" class="nav-link">
+                        <p>Monthly Report </p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/report/player/history-coin" class="nav-link">
+                        <p>Histry Coin</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/report/player/history-operator" class="nav-link">
+                        <p>Histry Operator</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/report/player/jackport" class="nav-link">
+                        <p>Jackport</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/report/player/bonus" class="nav-link">
+                        <p>Bonus</p>
+                    </router-link>
+                </li>
+            </ul>
         </li>
-        <li class="nav-item">
-            <router-link to="/companys" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
-                <p>
-                Companys
-                </p>
-            </router-link>
+
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p> Tools <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <router-link to="/tools/memo" class="nav-link">
+                        <p>Memo</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/tools/online" class="nav-link">
+                        <p>Online List</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/tools/game" class="nav-link">
+                        <p>Game Control</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/tools/statistic" class="nav-link">
+                        <p>Statistic</p>
+                    </router-link>
+                </li>
+            </ul>
         </li>
+
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p> Log <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <router-link to="/log/agent" class="nav-link">
+                        <p>Agent Log</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/log/player" class="nav-link">
+                        <p>Player Log</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/log/downline" class="nav-link">
+                        <p>Downline Log</p>
+                    </router-link>
+                </li>
+            </ul>
+        </li>
+             
         <li class="nav-item">
         <a href="{{ route('logout') }}" class="nav-link"
             onclick="event.preventDefault();

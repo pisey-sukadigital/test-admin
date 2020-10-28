@@ -27,9 +27,9 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper pt-2">
             <!-- Content Header (Page header) -->
-            @include('layouts.includes.header')
+            <breadcrumb></breadcrumb>
             <!-- /.content-header -->
-              
+            
             <!-- Main content -->
             <app></app>
             <!-- /.content -->

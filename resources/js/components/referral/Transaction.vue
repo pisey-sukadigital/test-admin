@@ -4,12 +4,12 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">Active Component</div>
-                    <div class="card-body"> I'm an active component. </div>
+                <div class="card-header">Component Transaction</div>
+                    <div class="card-body"> I'm an component. </div>
                 </div>
-          </div><!-- /.col-lg-12 -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+          </div> 
+        </div> 
+      </div>
     </div>
 </template>
 

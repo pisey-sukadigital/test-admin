@@ -1,0 +1,32 @@
+<template>
+    <div class="content-header pt-1 pb-1">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">
+                    {{ this.$route.meta.title}}
+                    </h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li v-for="(path, index) in this.$route.meta.path"  class="breadcrumb-item">
+                            <a v-if="(path_count -1 != index)" href="#">{{ path }}</a>
+                            <span v-else>{{ path }}</span>
+                        </li>
+                    </ol>
+                </div> 
+            </div> 
+        </div>
+    </div>
+</template>
+<script>
+    export default {
+        name: 'Breadcrumb',
+        data: function () {
+            return {
+                path_count: (this.$route.meta.path ? this.$route.meta.path.length : 0)
+                
+            }
+        },
+    }
+</script>

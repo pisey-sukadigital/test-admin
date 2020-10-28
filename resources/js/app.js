@@ -6,6 +6,7 @@ import { HasError, AlertError } from 'vform'
 import store from './store/index'
 import VueRouter from 'vue-router'
 import App from './components/App.vue';
+import Breadcrumb from './components/Breadcrumb.vue';
 
 //Import Vue Filter
 require('./filter');
@@ -30,7 +31,8 @@ const router = new VueRouter({
 const app = new Vue({
     el: "#app",
     components: {
-        App
+        App,
+        Breadcrumb
     },
     router,
     store
