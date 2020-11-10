@@ -4,12 +4,15 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header border-0">
+                    <div class="card-header border-0 mb-0">
                         <h3 class="card-title">Posts</h3>
                         <div class="card-tools">
                         <button class="btn btn-success" @click="showCreateForm()">
                             <i class="fas fa-plus fa-fw"></i> Add New
                         </button>
+                            <div class="card-tools">
+                                <pagination :data="laravelData" size="small" v-on:pagination-change-page="fetchDatas"></pagination>
+                            </div>
                         </div>
                     </div>
                 <div class="card-body p-0">
@@ -25,7 +28,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="data in datas.data" :key="data.id">
+                        <tr v-for="data in laravelData.data" :key="data.id">
                             <td>{{data.id}}</td>
                             <td>{{data.title}}</td>
                             <td>{{data.content}}</td>
@@ -38,6 +41,7 @@
                         </tr>
                     </tbody>
                     </table>
+                    
                 </div>
                 </div>
             </div>
@@ -83,26 +87,30 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
-
+    import {mapGetters} from 'vuex';
+    
     export default {
         name: "Posts",
+        props : {size: String},
+       
         data() {
             return {
                 url: "/api/posts",
                 is_edit: false,
                 form: new Form({ id: '', title: '', content: '' }),
+                laravelData: {}, 
             }
         },
         mounted() {
             this.fetchDatas();
         },
         methods: {
-            fetchDatas() {
+            fetchDatas(page = 1) {
                 this.$Progress.start()
-                this.$store.dispatch('fetchDatas',this.url).then(response => {
+                this.$store.dispatch('fetchDatas',this.url + "?page=" + page).then(response => {
                     if (response.status == '200'){
                         // message
+                        this.laravelData = response.data;
                         this.$Progress.finish()
                          
                     }
@@ -115,33 +123,40 @@
             showCreateForm(){
                 this.statusModule('show');
                 this.form.reset();
+                
                 this.$refs.title.focus()
                 this.is_edit = false;
                 
             },
 
             createData() {
-                this.$Progress.start()
-                this.$store.dispatch('createData', [this.url,this.form])
-                .then(response => {
-                    if (response.status == '200'){
-                        // message
-                        this.$Progress.finish()
-                        this.statusModule('hide');
-                        Fire.$emit('AfterCreate');
-                        this.displayToastMessage('success','Post create successfully');
-                    }
-                }).catch(err => {
-                    this.$Progress.fail()
-                    console.log('false createData')
-                    this.displayToastMessage('error','false deleteData');
-                })
+
+                this.form.post(this.url)
+                 .then(({ data }) => { console.log(data) })
+
+                // this.$Progress.start()
+                // this.$store.dispatch('createData', [this.url,this.form])
+                // .then(response => {
+                //     if (response.status == '200'){
+                //         // message
+                //         this.$Progress.finish()
+                //         this.statusModule('hide');
+                //         Fire.$emit('AfterCreate');
+                //         this.displayToastMessage('success','Post create successfully');
+                //     }
+                // }).catch(err => {
+                //     this.$Progress.fail()
+                //     console.log('false createData')
+                //     this.displayToastMessage('error','false deleteData');
+                // })
             },
 
             showEditForm(data){
+                this.$Progress.start()
                 this.statusModule('show');
                 this.is_edit = true;
                 this.form.fill(data);
+                 this.$Progress.finish()
             },
 
             updateData() {
@@ -226,5 +241,4 @@
         }
     }
 </script>
-
 <style scoped></style>

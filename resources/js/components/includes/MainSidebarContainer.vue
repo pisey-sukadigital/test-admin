@@ -3,7 +3,7 @@
         <!-- Brand Logo -->
         <router-link to="/" class="point">
             <div class="text-center">
-                <img :src="'/img/logo/logotext.png'" width="200px" alt="Logo" class="brand-image"
+                <img :src="'/img/logo/logotext.png'" width="250px" alt="Logo" class="brand-image"
             style="opacity: .8">
             </div>
         </router-link>
@@ -37,12 +37,12 @@
                 '/player/create','/player/list'
                 ]) ? 'block' : 'none'}">
                     <li class="nav-item">
-                        <router-link to="/player/create" class="nav-link">
+                        <router-link to="/player/create" class="nav-link pl-5">
                             <p>Add Player</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/player/list" class="nav-link">
+                        <router-link to="/player/list" class="nav-link pl-5">
                             <p>Player List</p>
                         </router-link>
                     </li>
@@ -62,17 +62,17 @@
                  '/referral/list','/referral/history','/referral/transaction'
                 ]) ? 'block' : 'none'}">
                     <li class="nav-item">
-                        <router-link to="/referral/list" class="nav-link">
+                        <router-link to="/referral/list" class="nav-link pl-5">
                             <p>Referral Name</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/referral/history" class="nav-link">
+                        <router-link to="/referral/history" class="nav-link pl-5">
                             <p>History</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/referral/transaction" class="nav-link">
+                        <router-link to="/referral/transaction" class="nav-link pl-5">
                             <p>Transaction</p>
                         </router-link>
                     </li>
@@ -92,17 +92,17 @@
                 '/rakeback/limit','/rakeback/history','/rakeback/running-bet'
                 ]) ? 'block' : 'none'}">
                     <li class="nav-item">
-                        <router-link to="/rakeback/limit" class="nav-link">
+                        <router-link to="/rakeback/limit" class="nav-link pl-5">
                             <p>RakeBack Limit</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/rakeback/history" class="nav-link">
+                        <router-link to="/rakeback/history" class="nav-link pl-5">
                             <p>History</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/rakeback/running-bet" class="nav-link">
+                        <router-link to="/rakeback/running-bet" class="nav-link pl-5">
                             <p>Running Bet</p>
                         </router-link>
                     </li>
@@ -130,47 +130,47 @@
                 '/report/player/jackport','/report/player/bonus'
                 ]) ? 'block' : 'none'}">
                     <li class="nav-item">
-                        <router-link to="/report/player/transaction" class="nav-link">
+                        <router-link to="/report/player/transaction" class="nav-link pl-5">
                             <p>Player Transaction</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/report/player/running-bet" class="nav-link">
+                        <router-link to="/report/player/running-bet" class="nav-link pl-5">
                             <p>Running Bet</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/report/player/winlost" class="nav-link">
+                        <router-link to="/report/player/winlost" class="nav-link pl-5">
                             <p>Win \ Lose</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/report/player/daily" class="nav-link">
+                        <router-link to="/report/player/daily" class="nav-link pl-5">
                             <p>Daily Player Report Bet</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/report/player/month" class="nav-link">
+                        <router-link to="/report/player/month" class="nav-link pl-5">
                             <p>Monthly Report </p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/report/player/history-coin" class="nav-link">
+                        <router-link to="/report/player/history-coin" class="nav-link pl-5">
                             <p>Histry Coin</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/report/player/history-operator" class="nav-link">
+                        <router-link to="/report/player/history-operator" class="nav-link pl-5">
                             <p>Histry Operator</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/report/player/jackport" class="nav-link">
+                        <router-link to="/report/player/jackport" class="nav-link pl-5">
                             <p>Jackport</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/report/player/bonus" class="nav-link">
+                        <router-link to="/report/player/bonus" class="nav-link pl-5">
                             <p>Bonus</p>
                         </router-link>
                     </li>
@@ -190,22 +190,22 @@
                  '/tools/memo','/tools/online','/tools/game','/tools/statistic'
                 ]) ? 'block' : 'none'}">
                     <li class="nav-item">
-                        <router-link to="/tools/memo" class="nav-link">
+                        <router-link to="/tools/memo" class="nav-link pl-5">
                             <p>Memo</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/tools/online" class="nav-link">
+                        <router-link to="/tools/online" class="nav-link pl-5">
                             <p>Online List</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/tools/game" class="nav-link">
+                        <router-link to="/tools/game" class="nav-link pl-5">
                             <p>Game Control</p>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/tools/statistic" class="nav-link">
+                        <router-link to="/tools/statistic" class="nav-link pl-5">
                             <p>Statistic</p>
                         </router-link>
                     </li>
@@ -241,6 +241,24 @@
                     </li>
                 </ul>
             </li>
+
+             <li class="nav-item has-treeview">
+                <router-link to="/users" class="nav-link">
+                    <p>users</p>
+                </router-link>
+            </li>
+
+            <li class="nav-item has-treeview">
+                <router-link to="/posts" class="nav-link">
+                    <p>posts</p>
+                </router-link>
+            </li>
+
+            <li class="nav-item has-treeview">
+                <router-link to="/companys" class="nav-link">
+                    <p>Companys</p>
+                </router-link>
+            </li>
                 
             </ul>
         </nav>
@@ -252,28 +270,17 @@
 
 <script>
     export default {
-
-        data: function () {
-            return {
-                MIX_APP_NAME: "",
-                fullPath:'',
-                classObject: {
-                    'menu-open': true 
-                }
-            }
-        } ,
+        name: 'MainSidebarContainer',
         mounted() {
-            console.log("mounted main-side-bar");  
-            this.MIX_APP_NAME = process.env.MIX_APP_NAME;
+           
         },
         methods: {
             subIsActive(input) {
                 const paths = Array.isArray(input) ? input : [input]
-                return paths.some(path => {
-                    console.log("subIsActive");  
-                return this.$route.path.indexOf(path) == 0 // current path starts with this path string
+                return paths.some(path => {  
+                return this.$route.path.indexOf(path) === 0 // current path starts with this path string
                 })
             }
-            }
+        }
     }
 </script>

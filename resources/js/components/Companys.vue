@@ -117,7 +117,7 @@
 
     import {mapGetters} from 'vuex'
 
-    let actions = {
+    export default {
         name: "company",
          data(){
             return {
@@ -134,7 +134,7 @@
         },
         mounted() {
             this.fetchDatas();
-            this.$store.dispatch('fetchDatas','/api/companys')
+            // this.$store.dispatch('fetchDatas','/api/companys')
         },
         methods: {
             fetchDatas() {
@@ -143,8 +143,6 @@
                     if (response.status == '200'){
                         // message
                         this.$Progress.finish()
-                        
- 
                     }
                 }).catch(err => {
                     console.log('false fetchDatas')
@@ -152,11 +150,10 @@
                 })
             },
             createData() {
-                this.$Progress.start()
+                
                 this.$store.dispatch('createData', [this.url,this.form])
                 .then(response => {
                     if (response.status == '200'){
-                        // message
                         this.statusModule('hide');
                         this.$Progress.finish()
                         toast.fire({
@@ -164,9 +161,8 @@
                             title: 'Company create successfully'
                         })
                         
-                    }
+                    } 
                 }).catch(err => {
-                    this.$Progress.fail()
                     toast.fire({
                         icon: 'error',
                         title: 'false createData'
@@ -196,10 +192,7 @@
             },
         },
         computed: {
-            ...mapGetters([
-                'datas'
-            ])
+            ...mapGetters([ 'datas'])
         }
     }
-    export default actions
 </script>

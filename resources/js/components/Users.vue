@@ -55,30 +55,26 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form @submit="createData(form)" @keydown="form.onKeydown($event)">
+                <form @submit="createData()" @keydown="form.onKeydown($event)">
                     <div class="modal-body">
-                    
                         <div class="form-group">
                             <label>Username</label>
                             <input v-model="form.name" type="text" name="name"
                                 class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                             <has-error :form="form" field="name"></has-error>
                         </div>
-
                         <div class="form-group">
                             <label>Email</label>
                             <input v-model="form.email" type="text" name="email"
                                 class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
                             <has-error :form="form" field="email"></has-error>
                         </div>
-
                         <div class="form-group">
                             <label>Password</label>
                             <input v-model="form.password" type="password" name="password" autocomplete="off"
                                 class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
                             <has-error :form="form" field="password"></has-error>
                         </div>
-
                         <div class="form-group">
                             <label>Confirm Password</label>
                             <input v-model="form.password_confirmation" type="password" name="password_confirmation" autocomplete="off"
@@ -89,7 +85,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         <button :disabled="form.busy" type="submit" class="btn btn-primary"
-                        @click.prevent="createData(form)">Create</button>
+                        @click.prevent="createData()">Create</button>
                     </div>
                 </form>
                 </div>
@@ -125,15 +121,19 @@
                     if (response.status == '200'){
                         // message
                         this.$Progress.finish()
-                         
+        
                     }
                 }).catch(err => {
                     console.log('false fetchDatas')
                     this.$Progress.fail()
                 })
             },
-            createData(form) {
-                this.$store.dispatch('createData',['/api/users',form])
+            createData() {
+
+                // this.$store.dispatch('createData',['/api/users',this.form])
+            
+                this.form.post(this.url)
+                 .then(({ data }) => { console.log(data) })
             },
             deleteData(data) {
                 this.$store.dispatch('deleteData',['/api/users',data])

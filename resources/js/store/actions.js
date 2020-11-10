@@ -1,4 +1,4 @@
-let actions = {
+export default {
 
     fetchData({ commit }, datas) {
         return new Promise((resolve, reject) => {
@@ -32,16 +32,15 @@ let actions = {
             let url = datas[0];
             let form = datas[1];
             if (url && form) {
-                axios.post(url, form)
-                    .then(response => {
-                        commit('CREATE_DATA', response.data);
-                        resolve(response);
-                    }).catch(err => {
-                        reject(err)
+                form.post(url)
+                    .then(({ data }) => {
+                        commit('CREATE_DATA', data);
+                    })
+                    .catch(err => {
+                        console.log(err)
                     });
             }
         })
-
     },
 
     deleteData({ commit }, datas) {
@@ -64,6 +63,7 @@ let actions = {
         return new Promise((resolve, reject) => {
             let url = datas[0];
             let data = datas[1];
+
             if (url && data) {
                 axios.put(url, data)
                     .then(response => {
@@ -75,5 +75,3 @@ let actions = {
         })
     },
 }
-
-export default actions

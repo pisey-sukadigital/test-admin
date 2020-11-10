@@ -1,7 +1,5 @@
 import VueProgressBar from "vue-progressbar";
-Vue.use(VueProgressBar, options)
-
-const options = {
+Vue.use(VueProgressBar, {
     color: "#bffaf3",
     failedColor: "#874b4b",
     thickness: "5px",
@@ -11,6 +9,6 @@ const options = {
         termination: 300
     },
     autoRevert: true,
-    location: "left",
+    location: "top",
     inverse: false
-};
+});

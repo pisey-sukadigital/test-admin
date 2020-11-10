@@ -5,9 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-
+    <meta name="csrf-token" content="{{ csrf_token()}}">
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}">
-
     <title>Laravel adminlte vue</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
@@ -17,7 +16,7 @@
 <body class="hold-transition sidebar-mini">
     <div id="app" class="wrapper">
         <!-- Content Header (Page header) -->
-        @include('layouts.includes.navbar')
+        <navbar :user="{{ Auth::user() }}"></navbar>
         <!-- /.content-header -->
 
         <!-- Main Sidebar Container -->
@@ -36,16 +35,12 @@
         </div>
         <!-- /.content-wrapper -->
 
-        <!-- Control Sidebar -->
-        @include('layouts.includes.control-sidebar')
-        <!-- /.control-sidebar -->
-
         <!-- Main Footer -->
         <main-footer></main-footer>
         <!-- ./Main Footer -->
 
         <vue-progress-bar></vue-progress-bar>
-    
+
     </div>
     <!-- ./wrapper -->
 

@@ -1,7 +1,5 @@
-import { Form } from 'vform'
 import swal from 'sweetalert2'
 
-window.Form = Form;
 window.swal = swal;
 window.Fire = new Vue();
 window.toast = toast;

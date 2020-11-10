@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api');
+        // $this->middleware('auth:api');
     }
 
     /**
@@ -26,7 +26,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Post::all()->sortByDesc("id"));
+        $data = Post::latest()->paginate(10);
+        return PostResource::collection($data);
     }
 
     /**

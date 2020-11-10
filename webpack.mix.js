@@ -14,15 +14,9 @@ const { min } = require('lodash');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .js('node_modules/popper.js/dist/popper.js', 'public/js');
-    // .sourceMaps();
+    // .js('node_modules/popper.js/dist/popper.js', 'public/js')
+    .sourceMaps();
 
 if (mix.inProduction()) {
     mix.version();
 }
-
-mix.browserSync('https://laravel-adminlte-vue.dev/');
-
-// mix.browserSync({
-//     proxy: 'my-domain.test'
-// });

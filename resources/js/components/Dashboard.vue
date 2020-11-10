@@ -3,7 +3,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
-            <div class="card">
+            <div class="card card-default card-primary card-outline">
                 <div class="card-header">Dashboard Component</div>
                     <div class="card-body"> I'm an Dashboard component. </div>
                 </div>

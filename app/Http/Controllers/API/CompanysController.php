@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Company;
+use App\Models\Company\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CompanyResource;
 
-class CompanyController extends Controller
+class CompanysController extends Controller
 {
     /**
      * Create a new controller instance.
