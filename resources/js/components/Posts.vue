@@ -1,5 +1,6 @@
 <template>
     <div class="content">
+    <!-- <div v-if="$can(name)" class="content"> -->
         <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
@@ -85,16 +86,13 @@
         </div>
     </div>
 </template>
-
 <script>
     import {mapGetters} from 'vuex';
-    
     export default {
-        name: "Posts",
         props : {size: String},
-       
         data() {
             return {
+                name: 'permission-list',
                 url: "/api/posts",
                 is_edit: false,
                 form: new Form({ id: '', title: '', content: '' }),
@@ -103,6 +101,7 @@
         },
         mounted() {
             this.fetchDatas();
+            console.log("Posts");
         },
         methods: {
             fetchDatas(page = 1) {
@@ -236,7 +235,7 @@
         },
         created(){
             Fire.$on('AfterCreate',()=>{
-                console.log('Event on AfterCreate');
+                // console.log('Event on AfterCreate');
             });
         }
     }

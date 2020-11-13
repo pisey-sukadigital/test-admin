@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CompanyResource;
+use App\Models\Company;
 
 class CompanyController extends Controller
 {
@@ -14,12 +14,15 @@ class CompanyController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(){
         // $this->middleware('auth:api');
     }
     
     public function index(){
+        return CompanyResource::collection(Company::all());
+    }
+
+    public function all(){
         return CompanyResource::collection(Company::all());
     }
 
@@ -44,8 +47,7 @@ class CompanyController extends Controller
         return response()->json($company);
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id){
         Company::destroy($id);
         return response()->json("ok");
     }

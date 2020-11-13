@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <div v-if="$can(name)" class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -11,13 +11,28 @@
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
+    <div v-else>
+        <div class="text-center mt-2 pt-2 pb-2 bg-danger">
+          <h2>Permission denied</h2>
+        </div>
+    </div>
 </template>
 
 <script>
     export default {
+        data() {
+            return {
+                name: 'dashboard',
+                url: "/api/posts",
+                is_edit: false,
+                form: new Form({ id: '', title: '', content: '' }),
+                laravelData: {}, 
+            }
+        },
         mounted() {
           this.$Progress.start()
-          console.log('Component mounted.')
+          console.log('Dashboard Component mounted.')
+          //  console.log(window.Permissions);
           this.$Progress.finish()
         }
     }

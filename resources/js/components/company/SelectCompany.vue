@@ -1,7 +1,7 @@
 <template>
     <div>
-         <select class="custom-select" id="companyId">
-            <option value="0">C01 {{ body }}</option>
+        <select class="custom-select" id="companyId">
+            <option value="0">C01</option>
             <option value="1">C02</option>
             <option value="2">C03</option>
             <option value="3">C04</option>
@@ -15,11 +15,9 @@
 
     export default {
         name: "select-company",
-        props: ['message'],
         data() {
             return {
                 url: "/api/company",
-                body: this.message 
             }
         },
         mounted() {
@@ -38,6 +36,8 @@
                 }).catch(err => {
                     console.log('false fetchDatas')
                     this.$Progress.fail()
+
+                   
                 })
             }
         },

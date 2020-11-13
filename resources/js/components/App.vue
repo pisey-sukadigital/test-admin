@@ -1,12 +1,12 @@
 <template>
     <!-- Main content -->
+    <div>
         <router-view></router-view>
+    </div>
     <!-- /.content -->
 </template>
 <script>
     export default {
-        mounted() {
-            
-        }
+        name:'App'
     }
 </script>

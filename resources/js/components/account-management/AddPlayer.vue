@@ -12,8 +12,7 @@
                             <div class="form-group row">
                                 <label for="Loginid" class="col-sm-2 col-form-label">Company_ID* :</label>
                                 <div class="col-sm-4">
-                                    <selectCompany message="Hi There!"></selectCompany>
-                                    
+                                    <selectCompany></selectCompany>
                                 </div>
                                 <div class="col-sm-4 my-auto">
                                     <small id="passwordHelpInline" class="text-muted"> Man 3 characters</small>

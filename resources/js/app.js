@@ -1,6 +1,7 @@
 require('./bootstrap');
 
 import Vue from 'vue'
+
 import { Form, HasError, AlertError } from 'vform'
 import store from './store/index'
 import swal from 'sweetalert2'
@@ -11,9 +12,16 @@ import Breadcrumb from './components/includes/Breadcrumb.vue';
 import MainSidebarContainer from './components/includes/MainSidebarContainer.vue';
 import MainFooter from './components/includes/MainFooter.vue';
 import Navbar from './components/includes/Navbar.vue';
+import Permissions from './mixins/Permissions';
 
+Vue.mixin(Permissions);
+
+//Import v-from
 window.Vue = require('vue');
 window.Form = Form;
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+
 window.swal = swal;
 window.Fire = new Vue();
 
@@ -31,8 +39,6 @@ const toast = swal.mixin({
 
 window.toast = toast;
 
-Vue.component(HasError.name, HasError)
-Vue.component(AlertError.name, AlertError)
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 // Vue.component('select-company', require('./components/company/SelectCompany.vue'))

@@ -77,9 +77,15 @@
                         </div>
                         <div class="form-group">
                             <label>Confirm Password</label>
-                            <input v-model="form.password_confirmation" type="password" name="password_confirmation" autocomplete="off"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('password_confirmation') }">
-                            <has-error :form="form" field="password_confirmation"></has-error>
+                            <input v-model="form.confirm_password" type="password" name="confirm_password" autocomplete="off"
+                                class="form-control" :class="{ 'is-invalid': form.errors.has('confirm_password') }">
+                            <has-error :form="form" field="confirm_password"></has-error>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Role</label>
+                            <selectRole></selectRole>
+                            <has-error :form="form" field="roles[]"></has-error>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -96,18 +102,21 @@
 
 <script>
 
-    import {mapGetters} from 'vuex'
+    import {mapGetters} from 'vuex';
+    import SelectRole from './system/roles/SelectRole.vue';
 
     let actions = {
         name: "users",
-         data(){
+        components: {SelectRole: SelectRole},
+        data(){
             return {
                 url: "/api/users",
+                items:[],
                 form: new Form({
                     name : '',
                     email : '',
                     password : '',
-                    password_confirmation : '',
+                    confirm_password : '',
                 })
             }
         },
@@ -116,24 +125,66 @@
         },
         methods: {
             fetchDatas() {
-                this.$Progress.start()
                 this.$store.dispatch('fetchDatas',this.url).then(response => {
                     if (response.status == '200'){
                         // message
+                        this.items = response.data;
                         this.$Progress.finish()
-        
                     }
                 }).catch(err => {
-                    console.log('false fetchDatas')
+                     console.log('false fetchDatas err');
+                    if (err.response.status == 422){
+                        console.log('false fetchDatas err');
+                        console.log(err.response.data.errors);
+                        this.$Progress.finish()
+                    }
+                     
                     this.$Progress.fail()
                 })
+
             },
             createData() {
 
+                console.log("createData");
+
+                this.$store.dispatch('createData', [this.url,this.form])
+                .then(response => {
+                    if (response.status == '200'){
+                        this.statusModule('hide');
+                        this.$Progress.finish()
+                        toast.fire({
+                            icon: 'success',
+                            title: 'Company create successfully'
+                        })
+                    } 
+                }).catch(err => {
+                    toast.fire({
+                        icon: 'error',
+                        title: 'false createData'
+                    })
+                })
+                // this.$Progress.start()
+
+                //  this.form.post(this.url).then(function(response){
+                //     if(response.data.status == 'success'){
+                //          console.log('successful'); 
+                //         // Swal.fire('OK',response.data.message,'success') // or call another component
+                //     }else{
+                //         console.log('error'); 
+                //         // Swal.fire('Error',response.data.error,'error')   
+                //     }
+                // })
+
+                // this.form.post(this.url)
+                //     .then(( response ) => { 
+                //         console.log('successful'); 
+                //         this.$Progress.finish()
+                //         this.form.reset();
+                //     });
+
                 // this.$store.dispatch('createData',['/api/users',this.form])
             
-                this.form.post(this.url)
-                 .then(({ data }) => { console.log(data) })
+                
             },
             deleteData(data) {
                 this.$store.dispatch('deleteData',['/api/users',data])

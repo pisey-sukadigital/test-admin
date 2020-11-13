@@ -63,7 +63,8 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form @submit="createData()" @keydown="form.onKeydown($event)">
+                <form action="#"  @submit.prevent="createData">
+                <!-- <form @submit="createData()" @keydown="form.onKeydown($event)"> -->
                     <div class="modal-body">
                     
                         <div class="form-group">
@@ -112,28 +113,23 @@
         </div>
     </div>
 </template>
-
 <script>
-
     import {mapGetters} from 'vuex'
-
     export default {
         name: "company",
          data(){
             return {
                 url: "/api/companys",
                 form: new Form({
-                    name : '',
-                    secret : '',
-                    url : '',
-                    callback : '',
-                    status : ''
+                    name : '', secret : '', url : '',
+                    callback : '', status : ''
                     
                 })
             }
         },
         mounted() {
-            this.fetchDatas();
+            // this.fetchDatas();
+            //  console.log("Companys");
             // this.$store.dispatch('fetchDatas','/api/companys')
         },
         methods: {
@@ -150,24 +146,35 @@
                 })
             },
             createData() {
-                
-                this.$store.dispatch('createData', [this.url,this.form])
-                .then(response => {
-                    if (response.status == '200'){
-                        this.statusModule('hide');
-                        this.$Progress.finish()
-                        toast.fire({
-                            icon: 'success',
-                            title: 'Company create successfully'
-                        })
-                        
-                    } 
-                }).catch(err => {
-                    toast.fire({
-                        icon: 'error',
-                        title: 'false createData'
-                    })
-                })
+
+            console.log("this.url:"+this.url);
+                this.form.post(this.url)
+                    .then(( response ) => {   
+                        console.log("this.url:"+this.url);
+                        this.form.reset();
+                    }).catch (error => {
+                        console.log("error");
+                        console.log(error.response)
+                        // this.isEditMode = false;
+                    });
+
+
+                // this.$store.dispatch('createData', [this.url,this.form])
+                // .then(response => {
+                //     if (response.status == '200'){
+                //         this.statusModule('hide');
+                //         this.$Progress.finish()
+                //         toast.fire({
+                //             icon: 'success',
+                //             title: 'Company create successfully'
+                //         })
+                //     } 
+                // }).catch(err => {
+                //     toast.fire({
+                //         icon: 'error',
+                //         title: 'false createData'
+                //     })
+                // })
             },
 
             deleteData(data) {
@@ -196,3 +203,4 @@
         }
     }
 </script>
+<style scoped></style>

@@ -7,7 +7,11 @@ export default {
             if (url && data) {
                 axios.get(url + '/' + data.id)
                     .then(response => {
-                        resolve(response);
+                        if (response.status == '200') {
+                            resolve(response);
+                        } else {
+                            console.log("response <> 200")
+                        }
                     }).catch(err => {
                         reject(err)
                     });
@@ -17,13 +21,16 @@ export default {
 
     fetchDatas({ commit }, url) {
         return new Promise((resolve, reject) => {
-            axios.get(url)
-                .then(response => {
+            axios.get(url).then(response => {
+                if (response.status == '200') {
                     commit('FETCH_DATAS', response.data);
                     resolve(response);
-                }).catch(err => {
-                    reject(err)
-                });
+                } else {
+                    console.log("response <> 200")
+                }
+            }).catch(err => {
+                reject(err)
+            });
         })
     },
 
@@ -32,12 +39,13 @@ export default {
             let url = datas[0];
             let form = datas[1];
             if (url && form) {
+                console.log("action createData");
                 form.post(url)
                     .then(({ data }) => {
                         commit('CREATE_DATA', data);
-                    })
-                    .catch(err => {
-                        console.log(err)
+                        resolve(data);
+                    }).catch(err => {
+                        reject(err)
                     });
             }
         })

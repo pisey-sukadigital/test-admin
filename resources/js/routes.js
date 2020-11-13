@@ -1,11 +1,8 @@
-import App from './components/App.vue';
-import Dashboard from './components/Dashboard.vue';
-import Users from './components/Users.vue';
-import Profile from './components/Profile.vue';
+import Dashboard from './components/dashboard/Dashboard.vue';
+//import Users from './components/Users.vue';
 import Companys from './components/Companys.vue';
 import Posts from './components/Posts.vue';
-import NotFound from './components/NotFound.vue';
-
+import NotFound from './components/includes/NotFound.vue';
 
 import AddPlayer from './components/account-management/AddPlayer.vue';
 import PlayerList from './components/account-management/PlayerList.vue';
@@ -37,10 +34,17 @@ import LogAgent from './components/log/Agent.vue';
 import LogPlayer from './components/log/Player.vue';
 import LogDownline from './components/log/Downline.vue';
 
+import SystemLogActiviy from './components/system/log_activity/LogActivity.vue';
+import SystemModules from './components/system/modules/Modules.vue';
+import SystemPermission from './components/system/permission/Permission.vue';
+import SystemRoles from './components/system/roles/Roles.vue';
+
+import Users from './components/user/Users.vue';
+
 export const routes = [{
         path: '*',
         component: NotFound,
-        meta: { title: 'NotFound', path: ['Home'] }
+        meta: { title: '', }
     }, {
         path: '/',
         component: Dashboard,
@@ -49,22 +53,20 @@ export const routes = [{
         path: '/dashboard',
         component: Dashboard,
         meta: { title: 'Dashboard', path: ['Home'] }
+    }, {
+        path: '/system/users',
+        component: Users
     }
 
     , {
-        path: '/users', component: Users
-    }
-    //,{
-    //     path: '/profile', component: Profile
-    // }
-    ,{
-        path: '/posts', component: Posts,
+        path: '/posts',
+        component: Posts,
         meta: { title: 'Posts', path: ['Home'] }
-    },
-    ,{
-        path: '/companys', component: Companys,
+    }, , {
+        path: '/companys',
+        component: Companys,
         meta: { title: 'Companys', path: ['Home'] }
-    }  
+    }
 
     ,
     {
@@ -197,4 +199,25 @@ export const routes = [{
         meta: { title: 'Downline Log', path: ['Home', 'Log', 'Downline'] }
     },
 
+    ,
+    {
+        path: '/system/log_activity',
+        component: SystemLogActiviy,
+        meta: { title: 'Log activity', path: ['Home', 'System', 'Log activity'] }
+    },
+    {
+        path: '/system/modules',
+        component: SystemModules,
+        meta: { title: 'Modules', path: ['Home', 'System', 'Modules'] }
+    },
+    {
+        path: '/system/permission',
+        component: SystemPermission,
+        meta: { title: 'Permission', path: ['Home', 'System', 'Permission'] }
+    },
+    {
+        path: '/system/roles',
+        component: SystemRoles,
+        meta: { title: 'Roles', path: ['Home', 'System', 'Roles'] }
+    }
 ]

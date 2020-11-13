@@ -20,7 +20,7 @@
         <!-- /.content-header -->
 
         <!-- Main Sidebar Container -->
-        <main-sidebar-container></main-sidebar-container>
+        <main-sidebar-container :permissions="{{ json_encode(Auth::user()->allPermissions, true) }}"></main-sidebar-container>
         <!-- /.Main Sidebar Container -->
     
         <!-- Content Wrapper. Contains page content -->
@@ -30,6 +30,7 @@
             <!-- /.content-header -->
             
             <!-- Main content -->
+            
             <app></app>
             <!-- /.content -->
         </div>
@@ -43,9 +44,17 @@
 
     </div>
     <!-- ./wrapper -->
+    <script>
+        @auth
+            window.Permissions = {!! json_encode(Auth::user()->allPermissions, true) !!};
+        @else
+            window.Permissions = [];
+        @endauth
+    </script> 
 
     <!-- REQUIRED SCRIPTS -->
     <script src="{{ mix('js/app.js') }}" defer></script>
 
+    
 </body>
 </html>

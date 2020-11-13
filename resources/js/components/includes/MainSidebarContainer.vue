@@ -13,253 +13,35 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            
-            <li class="nav-item">
-                <router-link to="/dashboard" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                    Dashboard
-                </p>
-                </router-link>
-            </li>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">               
 
-            <li class="nav-item has-treeview" 
-                v-bind:class="{'menu-open': subIsActive([
-                '/player/create','/player/list'
-                ]) }">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p> Account Management <i class="right fas fa-angle-left"></i></p>
-                </a>
-                <ul class="nav nav-treeview" 
-                v-bind:style="{ display: subIsActive([
-                '/player/create','/player/list'
-                ]) ? 'block' : 'none'}">
-                    <li class="nav-item">
-                        <router-link to="/player/create" class="nav-link pl-5">
-                            <p>Add Player</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/player/list" class="nav-link pl-5">
-                            <p>Player List</p>
-                        </router-link>
-                    </li>
-                </ul>
-            </li>
+                <li v-for="item in items" :key="item.id" class="nav-item has-treeview"
+                    v-bind:class="{'menu-open': subIsActive( item.children_link )}">
 
-            <li class="nav-item has-treeview"
-                 v-bind:class="{ 'menu-open': subIsActive([
-                '/referral/list','/referral/history','/referral/transaction'
-                ]) }">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p> Referral <i class="right fas fa-angle-left"></i></p>
-                </a>
-                <ul class="nav nav-treeview"
-                v-bind:style="{ display: subIsActive([
-                 '/referral/list','/referral/history','/referral/transaction'
-                ]) ? 'block' : 'none'}">
-                    <li class="nav-item">
-                        <router-link to="/referral/list" class="nav-link pl-5">
-                            <p>Referral Name</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/referral/history" class="nav-link pl-5">
-                            <p>History</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/referral/transaction" class="nav-link pl-5">
-                            <p>Transaction</p>
-                        </router-link>
-                    </li>
-                </ul>
-            </li>
+                    <a v-if="item.link == '#'"  href="#" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        {{ item.display }} 
+                        <i v-if="item.children && item.children.length > 0" class="right fas fa-angle-left"></i>
+                    </a>
 
-            <li class="nav-item has-treeview" 
-                v-bind:class="{ 'menu-open': subIsActive([
-                '/rakeback/limit','/rakeback/history','/rakeback/running-bet'
-                ]) }">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p> RakeBack <i class="right fas fa-angle-left"></i></p>
-                </a>
-                <ul class="nav nav-treeview"
-                v-bind:style="{ display: subIsActive([
-                '/rakeback/limit','/rakeback/history','/rakeback/running-bet'
-                ]) ? 'block' : 'none'}">
-                    <li class="nav-item">
-                        <router-link to="/rakeback/limit" class="nav-link pl-5">
-                            <p>RakeBack Limit</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/rakeback/history" class="nav-link pl-5">
-                            <p>History</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/rakeback/running-bet" class="nav-link pl-5">
-                            <p>Running Bet</p>
-                        </router-link>
-                    </li>
-                </ul>
-            </li>
+                    <router-link v-if="item.link != '#' && getPemission(item.name)" :to="{ path: item.link }" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            {{ item.display }}
+                            <i v-if="item.children && item.children.length > 0" class="right fas fa-angle-left"></i>
+                        </p>
+                    </router-link>
 
-            <li class="nav-item has-treeview"
-                v-bind:class="{ 'menu-open': subIsActive([
-                '/report/player/transaction','/report/player/running-bet',
-                '/report/player/winlost','/report/player/daily',
-                '/report/player/month','/report/player/history-coin',
-                '/report/player/history-coin','/report/player/history-operator',
-                '/report/player/jackport','/report/player/bonus'
-                ]) }">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p> Report <i class="right fas fa-angle-left"></i></p>
-                </a>
-                <ul class="nav nav-treeview"
-                v-bind:style="{ display: subIsActive([
-                '/report/player/transaction','/report/player/running-bet',
-                '/report/player/winlost','/report/player/daily',
-                '/report/player/month','/report/player/history-coin',
-                '/report/player/history-coin','/report/player/history-operator',
-                '/report/player/jackport','/report/player/bonus'
-                ]) ? 'block' : 'none'}">
-                    <li class="nav-item">
-                        <router-link to="/report/player/transaction" class="nav-link pl-5">
-                            <p>Player Transaction</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/report/player/running-bet" class="nav-link pl-5">
-                            <p>Running Bet</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/report/player/winlost" class="nav-link pl-5">
-                            <p>Win \ Lose</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/report/player/daily" class="nav-link pl-5">
-                            <p>Daily Player Report Bet</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/report/player/month" class="nav-link pl-5">
-                            <p>Monthly Report </p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/report/player/history-coin" class="nav-link pl-5">
-                            <p>Histry Coin</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/report/player/history-operator" class="nav-link pl-5">
-                            <p>Histry Operator</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/report/player/jackport" class="nav-link pl-5">
-                            <p>Jackport</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/report/player/bonus" class="nav-link pl-5">
-                            <p>Bonus</p>
-                        </router-link>
-                    </li>
-                </ul>
-            </li>
+                    <ul v-if="item.children && item.children.length > 0" class="nav nav-treeview"
+                        v-bind:style="{ display: subIsActive( item.children_link ) ? 'block' : 'none'}">
 
-            <li class="nav-item has-treeview"
-                v-bind:class="{ 'menu-open': subIsActive([
-                '/tools/memo','/tools/online','/tools/game','/tools/statistic'
-                ]) }">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p> Tools <i class="right fas fa-angle-left"></i></p>
-                </a>
-                <ul class="nav nav-treeview"
-                v-bind:style="{ display: subIsActive([
-                 '/tools/memo','/tools/online','/tools/game','/tools/statistic'
-                ]) ? 'block' : 'none'}">
-                    <li class="nav-item">
-                        <router-link to="/tools/memo" class="nav-link pl-5">
-                            <p>Memo</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/tools/online" class="nav-link pl-5">
-                            <p>Online List</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/tools/game" class="nav-link pl-5">
-                            <p>Game Control</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/tools/statistic" class="nav-link pl-5">
-                            <p>Statistic</p>
-                        </router-link>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item has-treeview"
-                v-bind:class="{ 'menu-open': subIsActive([
-                '/log/agent','/log/player','/log/downline'
-                ]) }">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p> Log <i class="right fas fa-angle-left"></i></p>
-                </a>
-                <ul class="nav nav-treeview"
-                 v-bind:style="{ display: subIsActive([
-                '/log/agent','/log/player','/log/downline'
-                ]) ? 'block' : 'none'}">
-                    <li class="nav-item">
-                        <router-link to="/log/agent" class="nav-link">
-                            <p>Agent Log</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/log/player" class="nav-link">
-                            <p>Player Log</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/log/downline" class="nav-link">
-                            <p>Downline Log</p>
-                        </router-link>
-                    </li>
-                </ul>
-            </li>
-
-             <li class="nav-item has-treeview">
-                <router-link to="/users" class="nav-link">
-                    <p>users</p>
-                </router-link>
-            </li>
-
-            <li class="nav-item has-treeview">
-                <router-link to="/posts" class="nav-link">
-                    <p>posts</p>
-                </router-link>
-            </li>
-
-            <li class="nav-item has-treeview">
-                <router-link to="/companys" class="nav-link">
-                    <p>Companys</p>
-                </router-link>
-            </li>
-                
+                        <li v-for="children in item.children" :key="children.id" v-if="getPemission(children.name)" class="nav-item">
+                            <router-link :to="{ path: children.link }" class="nav-link pl-5">
+                                {{ children.display }}
+                            </router-link>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -271,15 +53,37 @@
 <script>
     export default {
         name: 'MainSidebarContainer',
-        mounted() {
-           
+        props: ['permissions'],
+        data() {
+            return {
+                url: "/api/modules/all",
+                body: this.permissions,
+                items:[]
+            }
         },
+        mounted() {
+           this.fetchDatas();
+        },
+
         methods: {
             subIsActive(input) {
+                if(input == ""){ return false; }
                 const paths = Array.isArray(input) ? input : [input]
                 return paths.some(path => {  
-                return this.$route.path.indexOf(path) === 0 // current path starts with this path string
+                    return this.$route.path.indexOf(path) === 0 ; 
                 })
+            },
+            getPemission(link){
+                this.permissions.indexOf(link);
+                return true;
+            },
+            fetchDatas() {
+                axios.get(window.location.origin + this.url)
+                    .then(response => {
+                        this.items = response.data.data;
+                    }).catch(err => {
+                        console.log("error select-all-role"); 
+                });
             }
         }
     }
