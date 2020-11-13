@@ -16,17 +16,22 @@ class PermissionTableSeeder extends Seeder
     {
          $permissions = [
             'dashboard',
+
+            'account-managemnt',
             'player-create',
             'player-list',
 
+            'referral',
             'referral-name',
             'referral-history',
             'referral-transaction',
 
+            'rackback',
             'rackback-limit',
             'rackback-history',
             'rackback-running-bet',
 
+            'report',
             'report-player-transaction',
             'report-running-bet',
             'report-win-lost',
@@ -37,15 +42,18 @@ class PermissionTableSeeder extends Seeder
             'report-jackport',
             'report-bonus',
 
+            'tools',
             'tools-memo',
             'tools-online-list',
             'tools-game-control',
             'tools-statisic',
 
+            'log',
             'log-agent',
             'log-player',
             'log-downline',
 
+            'system',
             'system-users',
             'system-log-activity',
             'system-modules',

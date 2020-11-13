@@ -32,7 +32,6 @@
         mounted() {
           this.$Progress.start()
           console.log('Permission Component mounted.')
-          //  console.log(window.Permissions);
           this.$Progress.finish()
         }
     }

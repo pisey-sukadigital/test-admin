@@ -18,7 +18,7 @@
                 <li v-for="item in items" :key="item.id" class="nav-item has-treeview"
                     v-bind:class="{'menu-open': subIsActive( item.children_link )}">
 
-                    <a v-if="item.link == '#'"  href="#" class="nav-link">
+                    <a v-if="item.link == '#' && getPemission(item.name)"  href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         {{ item.display }} 
                         <i v-if="item.children && item.children.length > 0" class="right fas fa-angle-left"></i>
@@ -74,8 +74,7 @@
                 })
             },
             getPemission(link){
-                this.permissions.indexOf(link);
-                return true;
+                return (parseInt(this.permissions.indexOf(link)) >= 0);
             },
             fetchDatas() {
                 axios.get(window.location.origin + this.url)

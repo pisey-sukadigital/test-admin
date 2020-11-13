@@ -68,8 +68,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        $user = User::find($id);
-        return response()->json($user);
+        $data = User::with('roles')->find($id);
+        return response()->json($data);
     }
 
     /**
@@ -83,10 +83,9 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
+           'password' => 'same:confirm_password',
             'roles' => 'required'
         ]);
-    
         $input = $request->all();
         if(!empty($input['password'])){ 
             $input['password'] = Hash::make($input['password']);

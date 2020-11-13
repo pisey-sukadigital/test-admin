@@ -12,8 +12,14 @@ Route::get('/roles/all', [RoleController::class, 'all'])->name('roles.all');
 Route::get('/companys/all', [CompanyController::class, 'all'])->name('companys.all');
 Route::get('/modules/all', [ModuleController::class, 'all'])->name('modules.all');
 
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::put('/users/{id}/update', [UserController::class, 'update'])->name('users.update');
+
 Route::resources([
-    'users' => UserController::class,
+    // 'users' => UserController::class,
     'posts' => PostController::class,
     'companys' => CompanyController::class,
     'roles' => RoleController::class,

@@ -39,7 +39,6 @@ export default {
             let url = datas[0];
             let form = datas[1];
             if (url && form) {
-                console.log("action createData");
                 form.post(url)
                     .then(({ data }) => {
                         commit('CREATE_DATA', data);
@@ -71,7 +70,6 @@ export default {
         return new Promise((resolve, reject) => {
             let url = datas[0];
             let data = datas[1];
-
             if (url && data) {
                 axios.put(url, data)
                     .then(response => {
