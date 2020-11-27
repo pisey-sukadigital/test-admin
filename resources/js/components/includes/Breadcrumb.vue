@@ -9,10 +9,20 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li v-for="(path, key) in this.$route.meta.path" :key="path"  class="breadcrumb-item">
-                            <a v-if="(path_count -1 != key)" class="font-weight-bold" href="#">{{ path }}</a>
-                            <span v-else>{{ path }}</span>
-                        </li>
+
+                        <template v-if="(this.$route.meta.path.length > 1)">
+                            <li v-for="(path, key) in this.$route.meta.path" :key="path"  class="breadcrumb-item">
+                                <router-link v-if="key == 0" :to="'/dashboard'" class="font-weight-bold"> {{ path }} </router-link>
+                                <a v-else-if="key == 1" class="font-weight-bold" href="#">{{ path }}</a>
+                                <span v-else-if="key == 2">{{ path }} </span>
+                            </li>
+                        </template>
+
+                        <template v-else>
+                            <li v-for="(path, key) in this.$route.meta.path" :key="path"  class="breadcrumb-item">
+                                <span>{{ path }} </span>
+                            </li>
+                        </template> 
                     </ol>
                 </div> 
             </div> 
@@ -22,13 +32,5 @@
 <script>
     export default {
         name: 'Breadcrumb',
-        data: function () {
-            return {
-                path_count: 0
-            }
-        },
-        mounted() {
-            this.path_count = (this.$route.meta.path ? this.$route.meta.path.length : 0);
-        }
     }
 </script>
