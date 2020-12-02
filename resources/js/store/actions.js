@@ -55,6 +55,7 @@ export default {
             let url = datas[0];
             let data = datas[1];
             if (url && data) {
+
                 axios.delete(url + '/' + data.id)
                     .then(response => {
                         commit('DELETE_DATA', data)
@@ -69,10 +70,12 @@ export default {
     updateData({ commit }, datas) {
         return new Promise((resolve, reject) => {
             let url = datas[0];
-            let data = datas[1];
-            if (url && data) {
-                axios.put(url, data)
+            let form = datas[1];
+            if (url && form) {
+                console.log("url:" + url);
+                form.patch(url)
                     .then(response => {
+                        commit('UPDATE_DATA', response.data)
                         resolve(response);
                     }).catch(err => {
                         reject(err)

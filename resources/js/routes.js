@@ -1,9 +1,7 @@
 import Dashboard from './components/dashboard/Dashboard.vue';
-//import Users from './components/Users.vue';
-import Companys from './components/Companys.vue';
-import Posts from './components/Posts.vue';
 import NotFound from './components/includes/NotFound.vue';
 
+import Companys from './components/account-management/Companys.vue';
 import AddPlayer from './components/account-management/AddPlayer.vue';
 import PlayerList from './components/account-management/PlayerList.vue';
 
@@ -36,10 +34,8 @@ import LogDownline from './components/log/Downline.vue';
 
 import SystemLogActiviy from './components/system/log_activity/LogActivity.vue';
 import SystemModules from './components/system/modules/Modules.vue';
-import SystemPermission from './components/system/permission/Permission.vue';
 import SystemRoles from './components/system/roles/Roles.vue';
-
-import Users from './components/user/Users.vue';
+import SystemUsers from './components/system/users/Users.vue';
 
 export const routes = [{
         path: '*',
@@ -53,16 +49,10 @@ export const routes = [{
         path: '/dashboard',
         component: Dashboard,
         meta: { title: 'Dashboard', path: ['Home'] }
-    }, {
-        path: '/system/users',
-        component: Users
     }
 
-    , {
-        path: '/posts',
-        component: Posts,
-        meta: { title: 'Posts', path: ['Home'] }
-    }, , {
+    ,
+    {
         path: '/companys',
         component: Companys,
         meta: { title: 'Companys', path: ['Home'] }
@@ -205,19 +195,21 @@ export const routes = [{
         component: SystemLogActiviy,
         meta: { title: 'Log activity', path: ['Home', 'System', 'Log activity'] }
     },
+
     {
         path: '/system/modules',
         component: SystemModules,
         meta: { title: 'Modules', path: ['Home', 'System', 'Modules'] }
     },
-    {
-        path: '/system/permission',
-        component: SystemPermission,
-        meta: { title: 'Permission', path: ['Home', 'System', 'Permission'] }
-    },
+
     {
         path: '/system/roles',
         component: SystemRoles,
         meta: { title: 'Roles', path: ['Home', 'System', 'Roles'] }
-    }
-]
+    },
+    {
+        path: '/system/users',
+        component: SystemUsers,
+        meta: { title: 'User list', path: ['Home', 'System', 'User'] }
+    },
+];

@@ -23,7 +23,7 @@
         data() {
             return {
                 name: 'dashboard',
-                url: "/api/posts",
+                url: "",
                 is_edit: false,
                 form: new Form({ id: '', title: '', content: '' }),
                 laravelData: {}, 

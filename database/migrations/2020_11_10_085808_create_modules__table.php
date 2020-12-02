@@ -18,7 +18,7 @@ class CreateModulesTable extends Migration
             $table->string('name');
             $table->string('display');
             $table->string('link');
-            $table->string('symbol');
+            $table->string('symbol')->nullable();
             $table->integer('parent_id')->default(0);
             $table->integer('sort')->default(0);
             $table->tinyInteger('is_active')->default(0);

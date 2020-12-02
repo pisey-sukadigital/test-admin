@@ -17,6 +17,7 @@
     <div id="app" class="wrapper">
         <!-- Content Header (Page header) -->
         <navbar :user="{{ Auth::user() }}"></navbar>
+         
         <!-- /.content-header -->
 
         <!-- Main Sidebar Container -->
@@ -26,7 +27,7 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper pt-2">
             <!-- Content Header (Page header) -->
-            <breadcrumb></breadcrumb>
+            <breadcrumb ></breadcrumb>
             <!-- /.content-header -->
             
             <!-- Main content -->
@@ -47,6 +48,7 @@
     <script>
         @auth
             window.Permissions = {!! json_encode(Auth::user()->allPermissions, true) !!};
+            window.BaseUrl = {!! json_encode(config('app.url') ) !!};
         @else
             window.Permissions = [];
         @endauth

@@ -22,9 +22,6 @@ window.Form = Form;
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
-window.swal = swal;
-window.Fire = new Vue();
-
 const toast = swal.mixin({
     toast: true,
     position: 'top-end',
@@ -41,7 +38,6 @@ window.toast = toast;
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 
-// Vue.component('select-company', require('./components/company/SelectCompany.vue'))
 
 Vue.use(VueRouter);
 
@@ -63,7 +59,7 @@ const app = new Vue({
         Breadcrumb,
         MainSidebarContainer,
         MainFooter,
-        Navbar
+        Navbar,
     },
     router,
     store

@@ -12,6 +12,10 @@
      DELETE_DATA(state, data) {
          let index = state.datas.data.findIndex(item => item.id === data.id)
          state.datas.data.splice(index, 1)
+     },
+     UPDATE_DATA(state, data) {
+         let index = state.datas.data.findIndex(item => item.id === data.id)
+         state.datas.data[index] = data;
      }
  }
  export default mutations

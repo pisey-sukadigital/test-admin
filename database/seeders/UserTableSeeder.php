@@ -16,15 +16,16 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::create(['name' => 'User']);
+        $role = Role::create(['name' => 'Agent']);
         $permissions = Permission::pluck('id','id')->first();
         $role->syncPermissions($permissions);
 
         for($i = 1 ; $i <= 20 ; $i++){
-            $username = "user".$i;
+            $username = "user_".$i;
             $email = $username."@gmail.com";
             $user = User::create([
                 'name' => $username,
+                'username' => $username,
                 'email' => $email,
                 'password' => bcrypt('12345678')
             ]);

@@ -10,16 +10,21 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label for="Loginid" class="col-sm-2 col-form-label">Company_ID* :</label>
+                                <label for="Loginid" class="col-sm-2 col-form-label">Company ID  :</label>
                                 <div class="col-sm-4">
-                                    <selectCompany></selectCompany>
+                                    <select class="custom-select" id="company_id">
+                                        <option value="compan_a">compan A</option>
+                                        <option value="compan_b">compan B</option>
+                                        <option value="compan_c">compan C</option>
+                                        <option value="compan_d">compan D</option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-4 my-auto">
                                     <small id="passwordHelpInline" class="text-muted"> Man 3 characters</small>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="Loginid" class="col-sm-2 col-form-label">LoginID* :</label>
+                                <label for="Loginid" class="col-sm-2 col-form-label">Login ID* :</label>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control" id="Loginid" placeholder="LoginID" autocomplete="off">
                                 </div>
@@ -28,7 +33,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="password" class="col-sm-2 col-form-label">Password* :</label>
+                                <label for="password" class="col-sm-2 col-form-label">Password  :</label>
                                 <div class="col-sm-4"> 
                                     <input type="password" class="form-control" id="password" placeholder="Password" autocomplete="off">
                                 </div>
@@ -79,13 +84,7 @@
 </template>
 
 <script>
-    import SelectCompany from '../company/SelectCompany.vue';
     export default {
-        components: {SelectCompany: SelectCompany},
-        mounted() {
-            this.$Progress.start();
-            this.$Progress.finish();  
-        },
         methods: {
             submit: function(e) {
                 alert('Send method!');

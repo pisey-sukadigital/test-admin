@@ -28,7 +28,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="data in datas.data" :key="data.id">
+                        <tr v-for="data in items.data" :key="data.id">
                             <td> {{data.id}} </td>
                             <td> {{data.name}} </td>
                             <td> {{data.secret}} </td>
@@ -114,93 +114,21 @@
     </div>
 </template>
 <script>
-    import {mapGetters} from 'vuex'
     export default {
         name: "company",
          data(){
             return {
                 url: "/api/companys",
+                items:{},
                 form: new Form({
-                    name : '', secret : '', url : '',
-                    callback : '', status : ''
-                    
+                    name : '',
+                    secret : '',
+                    url : '',
+                    callback : '',
+                    status : ''
                 })
             }
-        },
-        mounted() {
-            // this.fetchDatas();
-            //  console.log("Companys");
-            // this.$store.dispatch('fetchDatas','/api/companys')
-        },
-        methods: {
-            fetchDatas() {
-                this.$Progress.start()
-                this.$store.dispatch('fetchDatas',this.url).then(response => {
-                    if (response.status == '200'){
-                        // message
-                        this.$Progress.finish()
-                    }
-                }).catch(err => {
-                    console.log('false fetchDatas')
-                    this.$Progress.fail()
-                })
-            },
-            createData() {
-
-            console.log("this.url:"+this.url);
-                this.form.post(this.url)
-                    .then(( response ) => {   
-                        console.log("this.url:"+this.url);
-                        this.form.reset();
-                    }).catch (error => {
-                        console.log("error");
-                        console.log(error.response)
-                        // this.isEditMode = false;
-                    });
-
-
-                // this.$store.dispatch('createData', [this.url,this.form])
-                // .then(response => {
-                //     if (response.status == '200'){
-                //         this.statusModule('hide');
-                //         this.$Progress.finish()
-                //         toast.fire({
-                //             icon: 'success',
-                //             title: 'Company create successfully'
-                //         })
-                //     } 
-                // }).catch(err => {
-                //     toast.fire({
-                //         icon: 'error',
-                //         title: 'false createData'
-                //     })
-                // })
-            },
-
-            deleteData(data) {
-                this.$store.dispatch('deleteData',[this.url,data]).then(response => {
-                    if (response.status == '200'){
-                        // message
-                        toast.fire({
-                            icon: 'success',
-                            title: 'Company deleted successfully'
-                        })
-                    }
-                }).catch(err => {
-                    toast.fire({
-                        icon: 'error',
-                        title: 'false deleteData'
-                    })
-                    console.log('false deleteData')
-                })
-            },
-            statusModule(status){
-                $('#myModal').modal(status);
-            },
-        },
-        computed: {
-            ...mapGetters([ 'datas'])
-        }
+        } 
     }
 </script>
 <style scoped></style>

@@ -26,8 +26,9 @@ class ModuleTableSeeder extends Seeder
         ['log','Log', '#', 'fas fa-tachometer-alt', 0, 7, 1],
         ['system','System', '#', 'fas fa-tachometer-alt', 0, 8, 1],
 
-        ['player-create','Player Create', '/player/create', 'fas fa-tachometer-alt', 2, 1, 1],
-        ['player-list','Player List', '/player/list', 'fas fa-tachometer-alt', 2, 2, 1],
+        ['company-list','Compant List', '/companys', 'fas fa-tachometer-alt', 2, 1, 1],
+        ['player-create','Player Create', '/player/create', 'fas fa-tachometer-alt', 2, 2, 1],
+        ['player-list','Player List', '/player/list', 'fas fa-tachometer-alt', 2, 3, 1],
 
         ['referral-name','Referral Name', '/referral/list', 'fas fa-tachometer-alt', 3, 1, 1],
         ['referral-history','History', '/referral/history', 'fas fa-tachometer-alt', 3, 2, 1],
@@ -57,10 +58,10 @@ class ModuleTableSeeder extends Seeder
         ['log-downline','Downline', '/log/downline', 'fas fa-tachometer-alt', 7, 3, 1],
 
         ['system-users','Users', '/system/users', 'fas fa-tachometer-alt', 8, 1, 1],
-        ['system-log-activity','Log Activity', '/system/log_activity', 'fas fa-tachometer-alt', 8, 2, 1],
+        ['system-roles','Roles', '/system/roles', 'fas fa-tachometer-alt', 8, 2, 1],
         ['system-modules','Modules', '/system/modules', 'fas fa-tachometer-alt', 8, 3, 1],
-        ['system-permission','Permission', '/system/permission', 'fas fa-tachometer-alt', 8, 4, 1],
-        ['system-roles','Roles', '/system/roles', 'fas fa-tachometer-alt', 8, 5, 1]
+        ['system-log-activity','Log Activity', '/system/log_activity', 'fas fa-tachometer-alt', 8, 4, 1],
+        
         ];
 
         foreach ($modules as $module) {

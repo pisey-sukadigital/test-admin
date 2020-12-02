@@ -20,8 +20,11 @@ class ModuleResource extends JsonResource
             'display' => $this->display,
             'link' => $this->link,
             'symbol' => $this->symbol,
+            'sort' => $this->sort,
+            'parent_id' => $this->parent_id,
+            'is_active' => $this->is_active,
             'children' => $this->getAllChildren()->get(),
             'children_link' => $this->getAllChildrenLink(),
         ];
     }
-}
+} 

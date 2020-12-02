@@ -20,6 +20,7 @@ class PermissionTableSeeder extends Seeder
             'account-managemnt',
             'player-create',
             'player-list',
+            'company-list',
 
             'referral',
             'referral-name',
@@ -55,19 +56,21 @@ class PermissionTableSeeder extends Seeder
 
             'system',
             'system-users',
-            'system-log-activity',
+            'system-user-create',
+            'system-user-edit',
+            'system-user-delete',
+
             'system-modules',
-            'system-permission',
+            'system-modules-create',
+            'system-modules-edit',
+            'system-modules-delete',
+
             'system-roles',
+            'system-roles-create',
+            'system-roles-edit',
+            'system-roles-delete',
 
-            'user-create',
-            'user-edit',
-            'user-delete',
-
-            'role-list',
-            'role-create',
-            'role-edit',
-            'role-delete'
+            'system-log-activity',
 
         ];
 
