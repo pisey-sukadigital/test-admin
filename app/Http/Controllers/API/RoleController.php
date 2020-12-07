@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-use DB;
 use App\Models\User;
 use App\Models\System\LogActivity;
 use Illuminate\Http\Request;
@@ -47,9 +46,6 @@ class RoleController extends Controller
 
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permissions'));
-        if($role){
-            LogActivity::addToLog('roles', 'Created', '', response()->json($role));
-        }
         return response()->json($role);
 
     }
@@ -66,20 +62,14 @@ class RoleController extends Controller
     
     public function update(RoleUpdateRequest $request, $id){
         $role = Role::find($id);
-        $before_update = response()->json($role);
         $role->name = $request->input('name');
         $role->save();
         $role->syncPermissions($request->input('permissions'));
-        $after_update = response()->json($role);
-        if($role){
-            LogActivity::addToLog('roles', 'Updated', $before_update, $after_update);
-        }
-
         return response()->json($role);
     }
     
     public function destroy($id){
-        DB::table("roles")->where('id',$id)->delete();
+        Role::find($id)->delete();
        return response()->json("ok");
     }
 }

@@ -21,8 +21,7 @@ class CreateLogActivityTable extends Migration
             $table->string('action');
             $table->string('ip');
             $table->text('agent')->nullable();
-            $table->text('before')->nullable();
-            $table->text('after')->nullable();
+            $table->text('info')->nullable();
             $table->timestamps();
         });
     }

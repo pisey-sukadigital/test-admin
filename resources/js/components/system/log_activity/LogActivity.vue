@@ -18,8 +18,7 @@
                                     <th class="text-center">Method</th>
                                     <th class="text-center">IP</th>
                                     <th class="text-center">Agent</th>
-                                    <th class="text-center">Before</th>
-                                    <th class="text-center">After</th>
+                                    <th class="text-center">Info</th>
                                     <th class="text-center">Created</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -38,10 +37,7 @@
                                                 {{ data.agent | substring }}
                                             </td>
                                             <td class="text-center"> 
-                                                {{ data.before | substring }}
-                                            </td>
-                                            <td class="text-center"> 
-                                                {{ data.after | substring }}
+                                                {{ data.info | substring }}
                                             </td>
                                              <td class="text-center"> 
                                                 {{ data.created_at }}
@@ -95,20 +91,14 @@
                             </div>
                         </div>
 
-                            <div class="form-group row">
-                            <label for="name" class="col-sm-2 col-form-label text-right">URL :</label>
-                            <div class="col-sm-10 text-break pt-2">
-                                {{form.url }}
-                            </div>
-                        </div>
-
                         <div class="form-group row">
                             <label for="name" class="col-sm-2 col-form-label text-right">Action :</label>
                                 <div class="col-sm-10 text-break pt-2">
-                                {{form.action }}
+                                    <h5><span class="badge badge-pill text-white"
+                                        :class="getbage(form.action)">{{ form.action }}</span>
+                                    </h5>
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label for="ip" class="col-sm-2 col-form-label text-right">IP :</label>
                             <div class="col-sm-10 text-break pt-2">
@@ -124,20 +114,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="before" class="col-sm-2 col-form-label text-right">Before :</label>
+                            <label for="before" class="col-sm-2 col-form-label text-right">Info :</label>
                             <div class="col-sm-10 text-break pt-2">
-                                {{form.before }}
+                                {{form.info }}
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="after" class="col-sm-2 col-form-label text-right">After :</label>
-                            <div class="col-sm-10 text-break pt-2">
-                                {{form.after }}
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="agent" class="col-sm-2 col-form-label text-right">Agent :</label>
+                            <label for="agent" class="col-sm-2 col-form-label text-right">Created :</label>
                                 <div class="col-sm-10 text-break pt-2">
                                 {{form.created_at }}
                             </div>
@@ -173,8 +157,7 @@
                     action: '',
                     ip: '',
                     agent: '',
-                    before: '',
-                    after: '',
+                    info: '',
                     created_at: '',
                 }),
             }

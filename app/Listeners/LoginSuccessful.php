@@ -25,6 +25,6 @@ class LoginSuccessful
      */
     public function handle($event)
     {
-        LogActivity::addToLog('User', 'Login', '', '');
+        LogActivity::addToLog('User', 'Login','');
     }
 }

@@ -26,6 +26,6 @@ class LogoutSuccessful
      */
     public function handle($event)
     {
-        LogActivity::addToLog('User', 'Logout', '', '');
+        LogActivity::addToLog('User', 'Logout', '');
     }
 }

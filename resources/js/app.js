@@ -3,7 +3,6 @@ require('./bootstrap');
 import Vue from 'vue'
 
 import { Form, HasError, AlertError } from 'vform'
-import store from './store/index'
 import swal from 'sweetalert2'
 import VueRouter from 'vue-router'
 import { routes } from './routes';
@@ -61,6 +60,5 @@ const app = new Vue({
         MainFooter,
         Navbar,
     },
-    router,
-    store
+    router
 });

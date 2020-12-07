@@ -19,14 +19,14 @@
                                     <table class="table table-hover table-striped table-bordered table-valign-middle">
                                     <thead class="table-primary">
                                     <tr >
-                                        <th>Name</th>
-                                        <th>Disaply	</th>
-                                        <th>Route name</th>
-                                        <th>Symbol</th>
-                                        <th>Parent</th>
-                                        <th>sort</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Disaply	</th>
+                                        <th class="text-center">Route path</th>
+                                        <th class="text-center">Symbol</th>
+                                        <th class="text-center">Parent</th>
+                                        <th class="text-center">sort</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                     </thead>
                                         <tbody>
@@ -37,9 +37,9 @@
                                                     <td> {{data.link}} </td>
                                                     <td> <i class="nav-icon" v-bind:class="data.symbol"></i> {{data.symbol}} </td>
                                                     <td>  </td>
-                                                    <td> {{data.sort}} </td>
-                                                    <td> {{data.is_active == 1 ? 'Active':'Disactive'}} </td>
-                                                    <td> 
+                                                    <td class="text-center"> {{data.sort}} </td>
+                                                    <td class="text-center"> {{data.is_active == 1 ? 'Active':'Disactive'}} </td>
+                                                    <td class="text-center"> 
                                                         <a v-if="$can('system-user-create')" class="btn p-0" @click="showStatus('edit',data)">
                                                             <i class="fas fa-edit text-info"></i>
                                                         </a>
@@ -56,9 +56,9 @@
                                                     <td> {{child.link}} </td>
                                                     <td> {{child.symbol}} </td>
                                                     <td> {{data.name}} </td>
-                                                    <td> {{child.sort}} </td>
-                                                    <td> {{child.is_active == 1 ? 'Active':'Disactive'}} </td>
-                                                    <td> 
+                                                    <td class="text-center"> {{child.sort}} </td>
+                                                    <td class="text-center"> {{child.is_active == 1 ? 'Active':'Disactive'}} </td>
+                                                    <td class="text-center"> 
                                                         <a v-if="$can('system-user-create')" class="btn p-0" @click="showStatus('edit',child)">
                                                             <i class="fas fa-edit text-info"></i>
                                                         </a>
@@ -292,6 +292,27 @@
                     toast.fire({
                         icon: 'error',
                         title: ' false createData'
+                    })
+                });
+            },
+
+            updateDate(){
+                this.$Progress.start();
+                this.form.post(this.url_update+this.form.id).then(response => {
+                    let index = this.items.data.findIndex(item => item.id === response.data.id);
+                    this.items.data[index] = response.data;
+                    this.form.reset();
+                    this.statusModule('hide');
+                    this.$Progress.finish();
+                    toast.fire({
+                        icon: 'success',
+                        title: 'Updated successfully'
+                    });
+                }).catch(err => {
+                    this.$Progress.fail();
+                    toast.fire({
+                        icon: 'error',
+                        title: 'false updatedate'
                     })
                 });
             },

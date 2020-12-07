@@ -38,10 +38,6 @@ class UserController extends Controller
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
-        if ($user) {
-            LogActivity::addToLog('user', 'Created', '', response()->json($user));
-        }
-    
         return response()->json($user);
     }
 
@@ -57,17 +53,10 @@ class UserController extends Controller
         }else{
             $input = $request->except(['password']);
         }
-
         $user = User::find($id);
-        $before_update = response()->json($user);
         $user->update($input);
-        $after_update = response()->json($user);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
         $user->assignRole($request->input('roles'));
-
-        if($user){
-            LogActivity::addToLog('user', 'Updated', $before_update, $after_update);
-        }
         return response()->json($user);
     }
 

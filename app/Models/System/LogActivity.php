@@ -14,7 +14,7 @@ class LogActivity extends Model
     protected $table = 'log_activity';
 
     protected $fillable = [
-        'user_id', 'subject', 'url', 'action', 'ip', 'agent', 'before','after'
+        'user_id', 'subject', 'url', 'action', 'ip', 'agent', 'info'
     ];
 
     protected $dates= [
@@ -30,15 +30,14 @@ class LogActivity extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
-    public static function addToLog($subject, $method=null,$before=null,$after=null){
+    public static function addToLog($subject, $method=null,$info=null){
         $log = [];
         $log['subject'] = $subject;
         $log['url'] = Request::fullUrl();
         $log['action'] = $method ?? Request::method();
         $log['ip'] = Request::ip();
         $log['agent'] = Request::header('user-agent');
-        $log['before'] = $before;
-        $log['after'] = $after;
+        $log['info'] = $info;
         $log['user_id'] = auth()->check() ? auth()->user()->id : 1;
         LogActivity::create($log);
     }

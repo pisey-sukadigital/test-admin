@@ -19,20 +19,20 @@
                                     <table class="table table-hover table-striped table-bordered table-valign-middle">
                                         <thead class="table-primary">
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Created</th>
-                                            <th>Updated</th>
-                                            <th>Action</th>
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Created</th>
+                                            <th class="text-center">Updated</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                                 <tr v-for="data in items.data" :key="data.id">
-                                                    <td> {{data.id}}</td>
-                                                    <td> {{data.name}}  {{ data.children }}</td>
-                                                    <td> {{data.created_at | formatDate}} </td>
-                                                    <td> {{data.updated_at | formatDate}} </td>
-                                                    <td> 
+                                                    <td class="text-center"> {{data.id}}</td>
+                                                    <td class="text-center"> {{data.name}}  {{ data.children }}</td>
+                                                    <td class="text-center"> {{data.created_at | formatDate}} </td>
+                                                    <td class="text-center"> {{data.updated_at | formatDate}} </td>
+                                                    <td class="text-center"> 
                                                         <a v-if="$can('system-user-create')" class="btn p-0" @click="showStatus('show',data)">
                                                             <i class="fas fa-eye text-info"></i>
                                                         </a>

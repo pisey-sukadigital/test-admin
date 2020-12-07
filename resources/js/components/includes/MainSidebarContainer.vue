@@ -37,12 +37,12 @@
 
                                 <template v-for="children in item.children" >
                                     <li :key="children.id" v-if="getPemission(children.name) && children.is_active == '1'" class="nav-item"
-                                    v-bind:class="{'nav-link pl-5 router-link-exact-active router-link-active': subIsSelect( children.name )}">
-                                        <router-link :to="{ path: children.link }" class="nav-link pl-5">
+                                    v-bind:class="{'nav-link router-link-exact-active router-link-active': subIsSelect( children.name )}">
+                                        <router-link :to="{ path: children.link }" class="nav-link">
+                                            <i class="nav-icon" v-bind:class="children.symbol"></i>
                                             {{ children.display }} 
                                         </router-link>
                                     </li>
-
                                  </template>
                             </ul>
 
